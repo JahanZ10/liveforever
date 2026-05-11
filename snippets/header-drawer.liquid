@@ -85,21 +85,16 @@
                           {%- endfor -%}
                         </ul>
                       {%- else -%}
-                        
                         <a
                           id="HeaderDrawer-{{ link.handle }}"
                           href="{{ link.url }}"
-                          class="menu-drawer__menu-item first--item-m list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
+                          class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
                           {% if link.current %}
                             aria-current="page"
                           {% endif %}
                         >
-                          <h2>
-                          
                           {{ link.title | escape }}
-                         </h2>
                         </a>
-                         
                       {%- endif -%}
                     </li>
                   </div>
