@@ -1,0 +1,335 @@
+<section
+  class="custom-how-it-works"
+  style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};"
+>
+  <div class="custom-container">
+    <h2 class="custom-how-title">{{ section.settings.heading }}</h2>
+
+    <!-- Swiper -->
+    <div class="custom-how-grid swiper" id="swiper-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="custom-how-card swiper-slide">
+            {% if block.settings.icon != blank %}
+              <div
+                class="custom-icon-wrapper"
+                style="background: {{ block.settings.block_icon }};"
+              >
+                <img
+                  src="{{ block.settings.icon | img_url: '100x100' }}"
+                  alt=""
+                  loading="lazy"
+                >
+              </div>
+            {% endif %}
+
+            <div class="custom-title_how_card">
+              {{ block.settings.title }}
+            </div>
+
+            <div class="custom-desp_how_card">
+              {{ block.settings.text }}
+            </div>
+
+            {% if block.settings.btn_link != blank %}
+              <a
+                class="custom-btn block-btn"
+                href="{{ block.settings.btn_link }}"
+              >
+                {{ block.settings.btn_text }}
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Arrows -->
+      <div class="swiper-button-prev swiper-prev-{{ section.id }}"></div>
+      <div class="swiper-button-next swiper-next-{{ section.id }}"></div>
+    </div>
+
+    {% if section.settings.button_text != blank %}
+      <div class="custom-how-button">
+        <a
+          href="{{ section.settings.button_link }}"
+          class="custom-btn"
+        >
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+  <div class="bottom-marquee-test">
+    <div class="marquee-track-test">
+      {% for i in (1..100) %}
+        <div class="marquee-logos-test"></div>
+      {% endfor %}
+      {% for i in (1..100) %}
+        <div class="marquee-logos-test"></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Swiper CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+>
+
+<style>
+  .custom-how-it-works {
+      margin: 60px 0px;
+      padding: 40px 20px;
+      border-radius: 20px 20px 1px 1px;
+  }
+
+  .custom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .custom-how-title {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #fff;
+  }
+
+  .custom-how-grid {
+    width: 100%;
+    position: relative;
+  }
+
+  .custom-how-card {
+    background: {{ section.settings.bg_color }};
+    position: relative;
+  }
+
+  .custom-icon-wrapper {
+    width: 100px;
+    height: 100px;
+    padding: 20px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-icon-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .custom-title_how_card {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  .custom-desp_how_card {
+    font-size: 12px;
+    color: #fff;
+    text-align: left;
+  }
+
+  .block-btn {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .custom-btn {
+    background: #000;
+    color: #fff;
+    padding: 7px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  /* Swiper arrows */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #fff;
+  }
+  .swiper-button-prev:after, .swiper-rtl .swiper-button-next:after,
+  .swiper-button-next:after, .swiper-rtl .swiper-button-prev:after{
+      display:none;
+  }
+  .bottom-marquee-test {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    margin-top: 50px;
+  }
+  .marquee-track-test {
+    display: flex;
+    gap: 10px;
+    animation: marquee-logos-test 100s linear infinite;
+  }
+  .marquee-logos-test {
+    display: block !important;
+    width: 25px;
+    height: 14px;
+    border-radius: 5px;
+    background: #fff;
+  }
+  @keyframes marquee-logos-test {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (max-width: 576px) {
+    .custom-how-it-works {
+      margin: 30px 15px;
+      padding: 30px 15px;
+    }
+  }
+</style>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('#swiper-{{ section.id }}', {
+      slidesPerView: {{ section.settings.desktop_slides }},
+      spaceBetween: 30,
+      navigation: {
+        nextEl: '.swiper-next-{{ section.id }}',
+        prevEl: '.swiper-prev-{{ section.id }}'
+      },
+      breakpoints: {
+        1024: {
+          slidesPerView: {{ section.settings.desktop_slides }}
+        },
+        768: {
+          slidesPerView: {{ section.settings.tablet_slides }}
+        },
+        576: {
+          slidesPerView: {{ section.settings.mobile_slides }}
+        }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Slider Points",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "How it works"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#F26531"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "desktop_slides",
+      "label": "Desktop Slides Per View",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "tablet_slides",
+      "label": "Tablet Slides Per View",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "mobile_slides",
+      "label": "Mobile Slides Per View",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "DEVELOP & SCAN"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Step Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        },
+        {
+          "type": "color",
+          "id": "block_icon",
+          "label": "Icon Background Color"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Card Description"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Label",
+          "default": "Learn More"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Slider Points",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}

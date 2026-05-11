@@ -1,0 +1,358 @@
+<section class="faq-chat-section"
+         style="background-color: {{ section.settings.bg_color }};
+                color: {{ section.settings.text_color }};
+                padding: {{ section.settings.section_padding }};">
+  <div class="faq-chat-wrapper">
+
+    <div class="faq-chat-container">
+
+      {% if section.settings.title != blank %}
+        <h2 class="faq-title" style="font-size: {{ section.settings.title_size }};">
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+
+      <div class="faq-items" id="faq-items">
+        {% for block in section.blocks %}
+          {% assign index = forloop.index0 %}
+          <div class="faq-item 
+                  {% if index >= 5 %}faq-hidden{% endif %} 
+                  {% if index >= 2 %}faq-collapsed{% endif %}"
+               data-index="{{ index }}"
+               {{ block.shopify_attributes }}>
+
+            <div class="faq-question">
+              {{ block.settings.question }}
+            </div>
+
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                {{ block.settings.answer }}
+              </div>
+              {% if block.settings.answer_icon %}
+                <img src="{{ block.settings.answer_icon | img_url: '50x50' }}" 
+                     alt="Answer icon" 
+                     width="auto"
+                     height="auto"
+                     class="faq-answer-icon">
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="faq-controls" id="faq-controls" style="display:none; text-align:left; margin-top:30px;">
+        <button type="button" id="faq-show-more" class="faq-btn">
+          {{ section.settings.button_label | default: 'See All FAQs' }}
+        </button>
+        <button type="button" id="faq-show-less" class="faq-btn" style="display:none;">
+          Show less
+        </button>
+      </div>
+
+    </div>
+
+    {% if section.settings.side_image %}
+      <div class="faq-side-image">
+        <img src="{{ section.settings.side_image | img_url: 'master' }}" 
+             alt="FAQ illustration"
+             width="auto"
+             height="auto"
+             loading="lazy">
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+  .faq-chat-section { 
+    text-align:center; 
+    border-radius:20px; 
+    overflow:hidden;
+    margin: 10px 0 60px;
+  }
+  .faq-title { 
+    margin:0 auto 40px; 
+    color:#fff; 
+    text-align:center;
+  }
+
+  .faq-chat-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  .faq-chat-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 515px;
+    margin: 0;
+  }
+
+  .faq-items { 
+    display:flex; 
+    flex-direction:column; 
+    gap:20px; 
+  }
+
+  .faq-item { 
+    display:flex; 
+    flex-direction:column; 
+    align-items:flex-start; 
+    gap:10px; 
+  }
+
+  .faq-question {
+    background:#fff; 
+    color:#000; 
+    border-radius:25px;
+    padding:12px 20px; 
+    display:inline-block; 
+    font-size:15px;
+    align-self:flex-start; 
+    cursor:pointer;
+  }
+
+  .faq-answer {
+    display:flex;
+    align-items: center;
+    gap: 10px;
+    align-self:flex-end; 
+    max-width:80%;
+  }
+
+  .faq-answer-content {
+    flex: 1;
+    background-color: {{ section.settings.answer_bg }};
+    color: {{ section.settings.answer_color }};
+    border-radius:20px; 
+    padding:15px; 
+  }
+
+  .faq-answer p { 
+    margin:0; 
+    text-align:left; 
+    font-size:14px; 
+  }
+
+  .faq-answer-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .faq-collapsed .faq-answer { 
+    display:none; 
+  }
+
+  .faq-hidden { 
+    display:none; 
+  }
+
+  .faq-btn {
+    background:#fff; 
+    color:#000; 
+    padding:12px 30px;
+    border-radius:6px; 
+    font-weight:600; 
+    cursor:pointer;
+    transition:opacity .3s; 
+    border:none;
+  }
+  .faq-btn:hover { 
+    opacity:.8; 
+  }
+
+  .faq-side-image {
+    flex: 0 0 150px;
+    max-width: 150px;
+    align-self: flex-end;
+    position: absolute;
+    right: 20%;
+    transform: translateX(50%);
+  }
+
+  .faq-side-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .faq-item.faq-collapsed .faq-question{
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    }
+
+  @media (max-width: 768px) {
+    .faq-chat-wrapper {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+    .faq-side-image {
+      margin: 0px auto;
+      flex: 0 0 auto;
+      max-width: 185px;
+      position: relative;
+      transform: translateX(0);
+      right: 0;
+    }
+    .faq-answer {
+      max-width: 90%;
+    }
+    .faq-chat-section{
+        padding: 50px 15px !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const items       = document.querySelectorAll('.faq-item');
+    const controls    = document.getElementById('faq-controls');
+    const showMore    = document.getElementById('faq-show-more');
+    const showLess    = document.getElementById('faq-show-less');
+    const totalItems  = items.length;
+    const limit       = 5;
+
+    if (totalItems > limit) {
+      controls.style.display = 'block';
+    }
+
+    items.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        if (!item.classList.contains('faq-hidden')) {
+          item.classList.toggle('faq-collapsed');
+        }
+      });
+    });
+
+    showMore.addEventListener('click', () => {
+      items.forEach((el, i) => {
+        if (i >= limit) {
+          el.classList.remove('faq-hidden');
+          el.classList.add('faq-collapsed');
+        }
+      });
+      showMore.style.display = 'none';
+      showLess.style.display = 'inline-block';
+    });
+
+    showLess.addEventListener('click', () => {
+      items.forEach((el, i) => {
+        if (i >= limit) {
+          el.classList.add('faq-hidden');
+          el.classList.add('faq-collapsed');
+        }
+      });
+      showLess.style.display = 'none';
+      showMore.style.display = 'inline-block';
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Chat Style",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Question Answers"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Title Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "answer_bg",
+      "label": "Answer Bubble Background",
+      "default": "#FEC340"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "Title Font Size",
+      "options": [
+        { "value": "24px", "label": "Small" },
+        { "value": "32px", "label": "Medium" },
+        { "value": "40px", "label": "Large" }
+      ],
+      "default": "32px"
+    },
+    {
+      "type": "text",
+      "id": "section_padding",
+      "label": "Section Padding (e.g. 60px 20px)",
+      "default": "60px 20px"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Show-More Button Label",
+      "default": "See All FAQs"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_image",
+      "label": "Right Side Image",
+      "info": "Recommended: 400x600px or similar. Appears on the right."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What types of film do you develop?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>We process C41 colour negative, black & white, and ECN-2 cine film in both 35mm and 120 formats.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "answer_icon",
+          "label": "Answer Icon (32x32px recommended)",
+          "info": "Small icon shown next to the answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Chat Style"
+    }
+  ]
+}
+{% endschema %}

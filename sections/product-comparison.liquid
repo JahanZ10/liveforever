@@ -1,0 +1,273 @@
+<section class="comparison-section" style="
+    position: relative;
+    overflow: hidden;
+    padding-top: {{ section.settings.top_spacing }}px;
+    padding-bottom: {{ section.settings.bottom_spacing }}px;
+  ">
+  <div class="page-width">
+    <div class="comapre-table-main" style="background: {{ section.settings.bg_color }};">
+      {% if section.settings.icon_image %}
+        <div class="comparison-title-img">
+          <img src="{{ section.settings.icon_image | img_url: 'master' }}">
+        </div>
+      {% endif %}
+
+      <div class="comparison-table">
+        <div class="comparison-row comparison-header">
+          <div class="comparison-cell attribute-title">{{ section.settings.title }}</div>
+          {% for block in section.blocks %}
+            {% if block.type == 'product' %}
+              {% assign product = all_products[block.settings.product] %}
+              <div class="comparison-cell product-title">{{ product.title }}</div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {% assign attributes = section.settings.attributes | split: ',' %}
+        {% for attribute in attributes %}
+          <div class="comparison-row">
+            <div class="comparison-cell attribute-title">{{ attribute | strip | capitalize }}</div>
+
+            {% for block in section.blocks %}
+              {% if block.type == 'product' %}
+                {% assign product = all_products[block.settings.product] %}
+                <div class="comparison-cell">
+                  {% case attribute | strip %}
+                    {% when 'price' %}
+                      {{ product.price | money }}
+                    {% when 'compare_at_price' %}
+                      {{ product.compare_at_price | money }}
+                    {% when 'vendor' %}
+                      {{ product.vendor }}
+                    {% else %}
+                      {{ product.metafields.custom[attribute] }}
+                  {% endcase %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+
+        {% for row in section.blocks %}
+          {% if row.type == 'custom_row' %}
+            <div class="comparison-row">
+              <div class="comparison-cell attribute-title">{{ row.settings.label }}</div>
+
+              {% for block in section.blocks %}
+                {% if block.type == 'product' %}
+                  {% assign product = all_products[block.settings.product] %}
+                  {% assign ns = row.settings.namespace %}
+                  {% assign key = row.settings.key %}
+                  <div class="comparison-cell">
+                    {{ product.metafields[ns][key] }}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Comparison",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "icon_image",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Compare Products"
+    },
+    {
+      "type": "text",
+      "id": "attributes",
+      "label": "Default attributes to compare (comma separated)",
+      "default": "price"
+    },
+    {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Conatiner Backgroun"
+    },
+    {
+      "type": "range",
+      "id": "top_spacing",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Spacing",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "bottom_spacing",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Spacing",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        }
+      ]
+    },
+    {
+      "type": "custom_row",
+      "name": "Custom comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Row label",
+          "default": "Feature"
+        },
+        {
+          "type": "text",
+          "id": "namespace",
+          "label": "Metafield namespace",
+          "default": "custom"
+        },
+        {
+          "type": "text",
+          "id": "key",
+          "label": "Metafield key",
+          "default": "warranty"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Product Comparison"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+    .comparison-cell.attribute-title {
+        display: table-cell;
+        background: {{ section.settings.bg_color }};
+    }
+    .comparison-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 26px;
+        font-weight: 600;
+    }
+    .comapre-table-main {
+        padding: 50px 30px;
+        border-radius: 30px;
+    }
+    .comparison-table {
+        width: 100%;
+        display: table;
+        max-width: 900px;
+        margin: auto;
+        padding-bottom: 20px;
+    }
+    .comparison-row {
+        display: table-row;
+    }
+    .comparison-cell {
+        display: table-cell;
+        padding: 12px 16px;
+        border: 1px solid #e3e3e3;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 15px;
+        color: #F0EAD8;
+    }
+    .attribute-title {
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+    }
+    .product-title {
+        font-weight: 700;
+        font-size: 16px;
+    }
+    .comparison-title-img {
+        max-width: 300px;
+        margin: auto;
+        margin-bottom: 40px;
+    }
+    .comparison-title-img img{
+        max-width: 100%;
+        width: 100%;
+    }
+    .comparison-cell.attribute-title {
+        display: table-cell;
+        color: #FEC340;
+        text-transform: uppercase;
+        font-size: 16px;
+    }
+
+  @media (max-width: 768px) {
+
+    /* Allow horizontal scroll */
+    .comparison-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .comparison-row {
+      display: table-row;
+      white-space: normal;
+    }
+
+    .comparison-cell {
+      display: table-cell;
+      min-width: 140px;
+      white-space: normal;
+              font-size: 12px;
+    }
+
+    .attribute-title {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      border-right: 1px solid #ccc;
+    }
+
+    .comparison-header .product-title {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      font-size: 13px;
+    }
+    .comparison-cell.attribute-title{
+        font-size: 14px;
+    }
+
+    .comparison-table::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .comparison-table::-webkit-scrollbar-thumb {
+      background: #bfbfbf;
+      border-radius: 4px;
+    }
+  }
+</style>

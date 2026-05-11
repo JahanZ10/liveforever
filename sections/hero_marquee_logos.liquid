@@ -1,0 +1,413 @@
+{% schema %}
+{
+  "name": "Hero Marquee & Logos",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top Marquee"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_marquee",
+      "label": "Show top marquee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Top marquee text",
+      "default": "FREE SHIPPING OVER £75"
+    },
+    {
+      "type": "range",
+      "id": "move_speed",
+      "label": "Scroll Speed",
+      "min": 10,
+      "max": 300,
+      "default": 80,
+      "step": 10
+    },
+    {
+      "type": "color",
+      "id": "marquee_bg",
+      "label": "Marquee background color",
+      "default": "#F26531"
+    },
+    {
+      "type": "color",
+      "id": "marquee_text_color",
+      "label": "Marquee text color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFB938"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_logo",
+      "label": "Left-side logo image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_badge",
+      "label": "Right-side badge image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Made by film lovers, for film lovers."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Description",
+      "default": "Live Forever Film Lab is a premium quality, independent film lab that began with a simple idea: to build the lab we always wished existed."
+    },
+    {
+      "type": "text",
+      "id": "button1_label",
+      "label": "Primary Button Label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button1_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button2_label",
+      "label": "Secondary Button Label",
+      "default": "ABOUT"
+    },
+    {
+      "type": "url",
+      "id": "button2_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button1_bg",
+      "label": "Primary Button BG",
+      "default": "#F26531"
+    },
+    {
+      "type": "color",
+      "id": "button1_text",
+      "label": "Primary Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button2_bg",
+      "label": "Secondary Button BG",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "button2_text",
+      "label": "Secondary Button Text Color",
+      "default": "#000000"
+    },
+
+    {
+      "type": "header",
+      "content": "Bottom Logos Marquee"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_marquee",
+      "label": "Show bottom marquee",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "top_space",
+      "label": "Top Spacing",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "bottom_space",
+      "label": "Top Spacing",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 15
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_img",
+          "label": "Logo image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Marquee & Logos"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="hero-marquee hero-marquee-{{ section.id }}" style="background: {{ section.settings.background_color }}; padding-top: {{ section.settings.top_space }}px; padding-bottom: {{ section.settings.bottom_space }}px;">
+
+  {% if section.settings.show_top_marquee %}
+  <div class="top-marquee" style="background: {{ section.settings.marquee_bg }}; color: {{ section.settings.marquee_text_color }};">
+    <div class="marquee">
+      {% for i in (1..30) %}
+        <span>{{ section.settings.marquee_text }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  {% if section.settings.heading != blank or section.settings.subtext != blank or  section.settings.button1_link != blank %}
+    <div class="main_content_hero_logo">
+      {% if section.settings.left_logo %}
+        <div class="left_logo_side">
+          <img class="left-logo" src="{{ section.settings.left_logo | image_url }}" width="auto" height="auto" alt="Left logo">
+        </div>
+      {% endif %}
+
+      <div class="hero-inner">
+        {% if section.settings.heading != blank %}
+          <h1>{{ section.settings.heading }}</h1>
+        {% endif %}
+        {% if section.settings.subtext != blank %}
+          <p>{{ section.settings.subtext }}</p>
+        {% endif %}
+        {% if section.settings.button1_label != blank or section.settings.button2_label != blank %}
+          <div class="buttons">
+            {% if section.settings.button1_label != blank %}
+              <a href="{{ section.settings.button1_link }}" class="btn primary"
+                style="background: {{ section.settings.button1_bg }}; color: {{ section.settings.button1_text }};">
+                {{ section.settings.button1_label }}
+              </a>
+            {% endif %}
+            {% if section.settings.button2_label != blank %}
+              <a href="{{ section.settings.button2_link }}" class="btn secondary"
+                style="background: {{ section.settings.button2_bg }}; color: {{ section.settings.button2_text }};">
+                {{ section.settings.button2_label }}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% assign have_value = false %}
+        {% if have_value %}
+          <div class="marquee_inner_logos">
+            {% for block in section.blocks %}
+              {% if block.settings.logo_img %}
+                <img src="{{ block.settings.logo_img | image_url }}" width="auto" height="auto" alt="Brand logo">
+                {% assign have_value = true %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+      </div>
+
+        {% if section.settings.right_badge %}
+          <div class="right_logo_side">
+            <img class="right-badge" src="{{ section.settings.right_badge | image_url }}" width="auto" height="auto" alt="Right badge">
+          </div>
+        {% endif %}
+      
+    </div>
+  {% endif %}
+{% if section.settings.show_bottom_marquee %}
+  <div class="bottom-marquee">
+    <div class="marquee-track">
+      {% for i in (1..100) %}
+        <div class="marquee-logos"></div>
+      {% endfor %}
+      {% for i in (1..100) %}
+        <div class="marquee-logos"></div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+</section>
+
+<style>
+  .hero-marquee{
+    padding: 20px 0 15px;
+  }
+.top-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  text-transform: uppercase;
+  padding: 5px 0;
+  font-size: 14px;
+  border-radius: 6px;
+  margin: 0 15px 20px;
+}
+.hero-marquee-{{ section.id }} .top-marquee .marquee {
+  display: inline-block;
+  animation: marquee {{ section.settings.move_speed }}s linear infinite;
+}
+.top-marquee .marquee span {
+  padding: 0 30px;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.main_content_hero_logo{
+  display: grid;
+    grid-template-columns: 0.5fr auto 0.5fr;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 2%;
+}
+.hero-marquee .left-logo {
+  width: 140px;
+}
+.hero-marquee .right-badge {
+  width: 140px;
+}
+.hero-inner {
+    max-width: 625px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.hero-inner h1 {
+  font-size: 82px;
+  line-height: 1.2;
+  margin: 0px;
+  text-align: center;
+}
+.hero-inner p {
+    font-size: 14px;
+    max-width: 535px;
+    margin: 0;
+    color: #000;
+    letter-spacing: 0;
+}
+.hero-inner .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.hero-inner .btn {
+  text-decoration: none;
+  padding: 7px 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.3s;
+  line-height: normal;
+      font-size: 14px;
+}
+.hero-inner .btn.secondary {
+  border-color: #000;
+}
+.marquee_inner_logos{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+.marquee_inner_logos img{
+  width: 70px;
+}
+.right_logo_side{
+    height: -webkit-fill-available;
+    margin-top: 15px;
+}
+.left_logo_side{
+    height: -webkit-fill-available;
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    margin-bottom: 100px;
+}
+
+.bottom-marquee {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 10px;
+  animation: marquee-logos 100s linear infinite;
+}
+
+.marquee-logos {
+  display: block !important;
+  width: 25px;
+  height: 14px;
+  border-radius: 5px;
+  background: #fff;
+}
+
+@keyframes marquee-logos {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .hero-inner h1 {
+    font-size: 42px;
+  }
+  .hero-inner p {
+    font-size: 12px;
+  }
+  .hero-marquee .left-logo {
+    width: 90px;
+    bottom: 10%;
+  }
+  .left_logo_side {
+    justify-content: center;
+  }
+  .hero-marquee .right-badge {
+    width: 90px;
+    top: 10%;
+  }
+  .main_content_hero_logo{
+    grid-template-columns: 1fr;
+    gap: 20px;
+            padding-bottom: 28px;
+  }
+  .left_logo_side,
+  .right_logo_side{
+    margin: 0;
+   }
+}
+</style>

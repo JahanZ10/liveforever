@@ -1,0 +1,303 @@
+<div id="develop-scan" class="lf-develop-scan">
+  <div class="lf-develop-scan__inner" style="background-color: {{ section.settings.bg_color }};">
+    <div class="lf-scan-wrap">
+      {% if section.settings.scan_sizes_title != blank or section.settings.scan_sizes_note != blank %}
+        <div class="lf-scan-header">
+          {% if section.settings.scan_sizes_title %}
+            <h3 class="lf-scan-title">
+              <span class="lf-info-icon lf-info-icon--sizes" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="lf-icon-svg">
+                  <rect x="3" y="8" width="7" height="10" rx="1"></rect>
+                  <rect x="10" y="6" width="7" height="12" rx="1"></rect>
+                  <rect x="17" y="4" width="4" height="14" rx="1"></rect>
+                </svg>
+              </span>
+              <span>{{ section.settings.scan_sizes_title }}</span>
+            </h3>
+          {% endif %}
+          {% if section.settings.scan_sizes_note %}
+            <p class="lf-scan-sub">{{ section.settings.scan_sizes_note }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="lf-scan-cards">
+        {% for block in section.blocks %}
+          {% if block.type == 'scan_card' %}
+            <div
+              class="lf-scan-card {% if block.settings.highlight %}lf-scan-card--highlight{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="lf-scan-card__header">
+                {% if block.settings.card_title %}
+                  <h4 class="lf-scan-card__title">{{ block.settings.card_title }}</h4>
+                {% endif %}
+                {% if block.settings.card_size or block.settings.card_filesize %}
+                  <p class="lf-scan-card__size">
+                    {% if block.settings.card_size %}{{ block.settings.card_size }}{% endif %}
+                    {% if block.settings.card_size and block.settings.card_filesize %} &bull; {% endif %}
+                    {% if block.settings.card_filesize %}{{ block.settings.card_filesize }}{% endif %}
+                  </p>
+                {% endif %}
+              </div>
+              {% if block.settings.card_desc %}
+                <p class="lf-scan-card__desc">{{ block.settings.card_desc }}</p>
+              {% endif %}
+              {% if block.settings.card_note %}
+                <p class="lf-scan-card__note">{{ block.settings.card_note }}</p>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if section.settings.btn_url %}
+        <div class="lf-scan-button">
+          <a href="{{ section.settings.btn_url }}">{{ section.settings.btn_text }}</a>
+        </div>
+      {% endif %}
+    </div>
+
+      <div class="bottom-marquee-test">
+        <div class="marquee-track-test">
+          {% for i in (1..100) %}
+            <div class="marquee-logos-test"></div>
+          {% endfor %}
+          {% for i in (1..100) %}
+            <div class="marquee-logos-test"></div>
+          {% endfor %}
+        </div>
+      </div>
+
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{ section.id }} .lf-develop-scan {
+    color: {{ section.settings.text_color }};
+    padding: 4.5rem 1.8rem;
+  }
+  .main_content_hero_logo {
+    padding-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .lf-develop-scan__inner {
+    max-width: 100%;
+    margin: 0;
+    padding: 40px 20px;
+    border-radius: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-wrap {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2.3rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: clamp(20px, 4vw, 32px);
+    text-transform: capitalize;
+    margin: 0 auto 0px;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.25rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-card {
+    border-radius: 18px;
+    padding: 2.3rem 2rem 2.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  #shopify-section-{{ section.id }} .lf-scan-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #shopify-section-{{ section.id }} h4.lf-scan-card__title {
+    font-size: 20px;
+    margin: 0;
+    color: {{ section.settings.text_color }};
+    line-height: normal;
+  }
+  #shopify-section-{{ section.id }} p.lf-scan-card__size {
+    background: {{ section.settings.badge_bg_color }};
+    color: {{ section.settings.badge_text_color }};
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1;
+    margin: 0;
+    border-radius: 6px;
+  }
+  #shopify-section-{{ section.id }} p.lf-scan-sub {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: {{ section.settings.text_color }};
+    max-width: 450px;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} p.lf-scan-card__desc {
+    font-size: 12px;
+    line-height: normal;
+    color: {{ section.settings.text_color }};
+  }
+  .bottom-marquee-test {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+  .marquee-track-test {
+    display: flex;
+    gap: 10px;
+    animation: marquee-logos-test 100s linear infinite;
+  }
+  .marquee-logos-test {
+    display: block !important;
+    width: 25px;
+    height: 14px;
+    border-radius: 5px;
+    background: #fff;
+  }
+  .lf-scan-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .lf-scan-button a {
+        margin: 14px;
+    background: #000;
+    color: #fff;
+    padding: 7px 20px;
+    border-radius: 4px;
+    line-height: normal;
+    text-decoration: none;
+    transition: 0.3s ease;
+    font-size: 14px;
+  }
+  @keyframes marquee-logos-test {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media screen and (max-width:767px){
+    #shopify-section-{{ section.id }} .lf-scan-card__header {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Scan Sizes",
+  "settings": [
+    {
+      "type": "text",
+      "id": "scan_sizes_title",
+      "label": "Scan sizes section title",
+      "default": "Scan Sizes"
+    },
+    {
+      "type": "textarea",
+      "id": "scan_sizes_note",
+      "label": "Scan sizes short note",
+      "default": "Choose the scan size that fits your workflow."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f26531"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "badge Background Color",
+      "default": "#fec340"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Text Color",
+      "default": "#000"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "scan_card",
+      "name": "Scan size card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card title",
+          "default": "Social"
+        },
+        {
+          "type": "text",
+          "id": "card_size",
+          "label": "Dimensions",
+          "default": "1500 × 1000"
+        },
+        {
+          "type": "text",
+          "id": "card_filesize",
+          "label": "Approx. file size",
+          "default": "2 MB"
+        },
+        {
+          "type": "textarea",
+          "id": "card_desc",
+          "label": "Description",
+          "default": "Our smallest scan - ideal for social media."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scan Sizes"
+    }
+  ]
+}
+{% endschema %}

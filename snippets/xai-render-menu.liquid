@@ -1,0 +1,159 @@
+{%- comment -%}
+  xai-render-menu.liquid
+  Multi-level menu with rotating SVG arrow
+{%- endcomment -%}
+
+{%- assign unique_id = 'xai-menu-' | append: menu.handle | append: '-' | append: level -%}
+
+<ul class="xai-menu-list {{ unique_id }}">
+  {%- for link in menu.links -%}
+    {%- assign has_children = false -%}
+    {%- if link.links != blank -%}
+      {%- assign has_children = true -%}
+    {%- endif -%}
+
+    {%- assign is_mega = false -%}
+    {%- if menu_type == 'mega' and level == 1 -%}
+      {%- assign is_mega = true -%}
+    {%- endif -%}
+
+    <li class="xai-menu-item{% if has_children %} xai-has-children{% endif %}">
+      <a href="{{ link.url }}" class="xai-menu-link">
+        {{ link.title | escape }}
+
+        {%- if has_children -%}
+          <span class="xai-dropdown-arrow">
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        {%- endif -%}
+      </a>
+
+      {%- if has_children -%}
+        {%- if is_mega -%}
+          <div class="xai-dropdown xai-mega-menu">
+            {%- for child in link.links -%}
+              <div class="xai-mega-column">
+                <div class="xai-mega-title">
+                  <a href="{{ child.url }}">{{ child.title | escape }}</a>
+                </div>
+
+                {%- if child.links != blank -%}
+                  <ul class="xai-menu-list">
+                    {%- for grand in child.links -%}
+                      <li class="xai-menu-item">
+                        <a href="{{ grand.url }}" class="xai-menu-link">
+                          {{ grand.title | escape }}
+                          {%- if grand.links != blank -%}
+                            <span class="xai-dropdown-arrow">
+                              <svg width="8" height="5" viewBox="0 0 10 6" fill="none">
+                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </span>
+                          {%- endif -%}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <div class="xai-dropdown">
+            {% render 'xai-render-menu', menu: link, menu_type: menu_type, level: level | plus: 1 %}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>
+
+
+<style>
+    .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .xai-menu-list { list-style: none; padding: 0; margin: 0; display: flex; gap: 2rem; }
+    .xai-menu-item { position: relative; }
+    .xai-menu-link {
+        text-decoration: none;
+        color: #000;
+        padding: 0;
+        display: block;
+        transition: color 0.2s;
+        font-size: 14px;
+    }
+    .xai-menu-link:hover { color: #000; }
+    .xai-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        background: #fffbf0;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: all 0.25s ease;
+        z-index: 999;
+        padding: 0.75rem 0;
+    }
+    .xai-has-children > .xai-menu-link {
+        display: flex;
+        align-items: center;
+    }
+    .xai-menu-item:hover > .xai-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    .xai-dropdown .xai-menu-item { padding: 0 1rem; }
+    .xai-dropdown .xai-menu-link { padding: 0.5rem 0; font-weight: normal; }
+    .xai-dropdown .xai-dropdown {
+        top: 0;
+        left: 100%;
+        margin-left: 0.5rem;
+    }
+    .xai-mega-menu {
+        transform: translateY(50%);
+        padding: 2rem;
+    }
+    .xai-mega-column { display: flex; flex-direction: column; }
+    .xai-mega-title {
+        margin-bottom: 0.75rem;
+        color: #333;
+        font-size: 14px;
+    }
+    .xai-mega-title a{
+        text-decoration: none;
+        color: #000;
+    }
+    .xai-mega-title a:hover{
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+    .xai-dropdown-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 6px;
+        transition: transform 0.25s ease;
+        color: currentColor;
+        line-height: 1;
+    }
+    .xai-has-children:hover > .xai-menu-link > .xai-dropdown-arrow {
+        transform: rotate(180deg);
+    }
+    .xai-dropdown .xai-dropdown-arrow svg {
+        width: 8px;
+        height: 5px;
+    }
+    @media (max-width: 989px) {
+        .xai-menu-list { display: none; }
+    }
+</style>

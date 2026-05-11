@@ -1,0 +1,408 @@
+<section
+  class="faq2-chat-section"
+  style="
+    padding: {{ section.settings.section_padding }};
+  "
+>
+  <div class="faq2-chat-wrapper"   style="
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: {{ section.settings.section_padding }};
+  ">
+    <div class="faq2-chat-container">
+      {% if section.settings.title != blank %}
+        <h2 class="faq2-title" style="font-size: {{ section.settings.title_size }};">
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+
+      <div class="faq2-categories" id="faq2-categories">
+        {% for block in section.blocks %}
+          {% if block.type == 'category' %}
+            <div class="faq2-category">
+              <h3 class="faq2-category-title">{{ block.settings.category_title }}</h3>
+
+              <div class="faq2-items">
+                {% for i in (1..8) %}
+                  {% capture q_key %}question_{{ i }}{% endcapture %}
+                  {% capture a_key %}answer_{{ i }}{% endcapture %}
+                  {% capture icon_key %}answer_icon_{{ i }}{% endcapture %}
+
+                  {% assign q = block.settings[q_key] %}
+                  {% assign a = block.settings[a_key] %}
+                  {% assign icon = block.settings[icon_key] %}
+
+                  {% if q != blank %}
+                    <div class="faq2-item {% if forloop.index != 1 %} {% endif %}" data-faq-index="{{ i }}">
+                      <div class="faq2-question">
+                        {% if block.settings.enable_steps %}
+                          <span class="step">{{ forloop.index }}</span>
+                        {% endif %}
+                        <span class="faq2-question-span">{{ q }}</span>
+                      </div>
+
+                      <div class="faq2-answer">
+                        <div class="faq2-answer-content">
+                          {{ a }}
+                        </div>
+
+                        {% if icon %}
+                          <img
+                            src="{{ icon | img_url: '50x50' }}"
+                            alt="Answer icon"
+                            class="faq2-answer-icon"
+                          >
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if section.settings.side_image %}
+      <div class="faq2-side-image">
+        <img
+          src="{{ section.settings.side_image | img_url: 'master' }}"
+          alt="FAQ illustration"
+          width="auto"
+          height="auto"
+          loading="lazy"
+        >
+      </div>
+    {% endif %}
+    {% if section.settings.note %}
+      <div class="bottom-note">{{ section.settings.note }}</div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .faq2-chat-section {
+    text-align:center;
+    border-radius:20px;
+    overflow:hidden;
+    margin: 10px 0 60px;
+    position: relative;
+  }
+  .bottom-note {
+    max-width: 700px;
+  }
+
+  .faq2-title {
+    margin:0 auto 40px;
+    color:{{ section.settings.title_color | default: '#fffbf0' }};
+    text-align:center;
+  }
+
+  .faq2-chat-wrapper {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1111px;
+    overflow:hidden;
+    border-radius:20px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .faq2-chat-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 760px;
+    margin: 0;
+  }
+
+  .faq2-category {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .faq2-category-title {
+    font-size: 20px;
+    color: #fffbf0;
+    margin-bottom: 20px;
+  }
+
+  .faq2-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .faq2-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:10px;
+    transition: transform .18s;
+        pointer-events: none;
+  }
+  .faq2-question {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+  }
+  .faq2-question-span {
+    background:#fff;
+    color:#000;
+    border-radius:25px;
+    padding:12px 20px;
+    display:inline-block;
+    font-size:15px;
+    align-self:flex-start;
+    cursor:pointer;
+  }
+  span.step {
+    flex: 1;
+    background-color: {{ section.settings.answer_bg }};
+    color: {{ section.settings.answer_color }};
+    border-radius:20px;
+    padding:6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    aspect-ratio: 1;
+    font-size: 14px;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+  }
+
+  .faq2-answer {
+    display:flex;
+    align-items: center;
+    gap: 10px;
+    align-self:flex-end;
+    width: 80%;
+    max-width: 720px;
+  }
+
+  .faq2-answer-content {
+    flex: 1;
+    background-color: {{ section.settings.answer_bg }};
+    color: {{ section.settings.answer_color }};
+    border-radius:20px;
+    padding:15px;
+  }
+
+  .faq2-answer p { margin:0; text-align:left; font-size:14px; }
+
+  .faq2-answer-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+        border: 1px solid black;
+    border-radius: 50%;
+  }
+
+  .faq2-item.faq2-collapsed .faq2-answer { display: none; }
+
+  .faq2-side-image {
+    flex: 0 0 150px;
+    max-width: 150px;
+    align-self: flex-end;
+    position: absolute;
+    top: 50px;
+    left: -3%;
+    transform: translateX(50%);
+  }
+
+  .faq2-side-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    {% comment %} box-shadow: 0 10px 30px rgba(0,0,0,0.3); {% endcomment %}
+  }
+
+  @media (max-width: 768px) {
+    .faq2-chat-wrapper { flex-direction: column-reverse; align-items:center; }
+    .faq2-side-image {
+      margin: 0 auto;
+      flex: 0 0 auto;
+      max-width: 185px;
+      position: relative;
+      transform: translateX(0);
+      right: 0;
+    }
+    .faq2-answer { width: 90%; }
+    .faq2-chat-section { padding: 50px 15px !important; }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const faqItems = document.querySelectorAll('.faq2-item');
+    faqItems.forEach((item) => {
+      const q = item.querySelector('.faq2-question');
+      const a = item.querySelector('.faq2-answer');
+
+      q.addEventListener('click', () => {
+        const closed = item.classList.contains('faq2-collapsed');
+        if (closed) {
+          item.classList.remove('faq2-collapsed');
+          setTimeout(() => {
+            if (a) a.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 120);
+        } else {
+          item.classList.add('faq2-collapsed');
+        }
+      });
+    });
+  });
+</script>
+
+
+{% schema %}
+{
+  "name": "FAQ (Categories)",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Title Text Color",
+      "default": "#fffbf0"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Section Title Color",
+      "default": "#fffbf0"
+    },
+    {
+      "type": "color",
+      "id": "answer_bg",
+      "label": "Answer Bubble Background",
+      "default": "#FEC340"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "Title Font Size",
+      "options": [
+        { "value": "24px", "label": "Small" },
+        { "value": "32px", "label": "Medium" },
+        { "value": "40px", "label": "Large" }
+      ],
+      "default": "32px"
+    },
+    {
+      "type": "text",
+      "id": "section_padding",
+      "label": "Section Padding (e.g. 60px 20px)",
+      "default": "60px 20px"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_image",
+      "label": "Right Side Image",
+      "info": "Recommended: 400x600px or similar. Appears on the right."
+    },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enable_steps",
+          "label": "Enable steps on questions",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "category_title",
+          "label": "Category Title",
+          "default": "Film Processing"
+        },
+        {
+          "type": "text",
+          "id": "question_1",
+          "label": "Q1 — Question",
+          "default": "What types of film do you develop?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer_1",
+          "label": "Q1 — Answer",
+          "default": "<p>We process C41 colour negative, black & white, and ECN-2 cine film, in both 35mm and 120 formats.</p>"
+        },
+        { "type": "image_picker", "id": "answer_icon_1", "label": "Q1 — Answer icon (optional)" },
+
+        { "type": "text", "id": "question_2", "label": "Q2 — Question", "default": "How fast will my film be ready?" },
+        {
+          "type": "richtext",
+          "id": "answer_2",
+          "label": "Q2 — Answer",
+          "default": "<p>C41: Same day or next business day. B&W: 2–3 business days. ECN: depends on lab schedule.</p>"
+        },
+        { "type": "image_picker", "id": "answer_icon_2", "label": "Q2 — Answer icon (optional)" },
+
+        { "type": "text", "id": "question_3", "label": "Q3 — Question" },
+        { "type": "richtext", "id": "answer_3", "label": "Q3 — Answer" },
+        { "type": "image_picker", "id": "answer_icon_3", "label": "Q3 — Answer icon (optional)" },
+
+        { "type": "text", "id": "question_4", "label": "Q4 — Question" },
+        { "type": "richtext", "id": "answer_4", "label": "Q4 — Answer" },
+        { "type": "image_picker", "id": "answer_icon_4", "label": "Q4 — Answer icon (optional)" },
+
+        { "type": "text", "id": "question_5", "label": "Q5 — Question" },
+        { "type": "richtext", "id": "answer_5", "label": "Q5 — Answer" },
+        { "type": "image_picker", "id": "answer_icon_5", "label": "Q5 — Answer icon (optional)" },
+
+        { "type": "text", "id": "question_6", "label": "Q6 — Question" },
+        { "type": "richtext", "id": "answer_6", "label": "Q6 — Answer" },
+        { "type": "image_picker", "id": "answer_icon_6", "label": "Q6 — Answer icon (optional)" },
+
+        { "type": "text", "id": "question_7", "label": "Q7 — Question" },
+        { "type": "richtext", "id": "answer_7", "label": "Q7 — Answer" },
+        { "type": "image_picker", "id": "answer_icon_7", "label": "Q7 — Answer icon (optional)" },
+
+        { "type": "text", "id": "question_8", "label": "Q8 — Question" },
+        { "type": "richtext", "id": "answer_8", "label": "Q8 — Answer" },
+        { "type": "image_picker", "id": "answer_icon_8", "label": "Q8 — Answer icon (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ (categories)",
+      "category": "FAQ"
+    }
+  ]
+}
+{% endschema %}

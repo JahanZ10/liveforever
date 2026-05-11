@@ -1,0 +1,273 @@
+{% schema %}
+{
+  "name": "Steps Section",
+  "settings": [
+    { "type": "color", "id": "main_bg", "label": "Main Section Background", "default": "#ffffff" },
+    { "type": "color", "id": "container_bg", "label": "Container Background", "default": "#f5f5f5" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Our Process" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Follow these simple steps</p>" },
+    { "type": "image_picker", "id": "floating_logo", "label": "Floating Logo (top-right)" },
+
+    {
+      "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 5, "unit": "px",
+      "label": "Top Spacing", "default": 40
+    },
+    {
+      "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 5, "unit": "px",
+      "label": "Bottom Spacing", "default": 40
+    },
+
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get Started"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step Item",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon Image" },
+        { "type": "inline_richtext", "id": "title", "label": "Title", "default": "Step Title" },
+        { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Description goes here</p>" }
+      ]
+    }
+  ],
+
+  "max_blocks": 10,
+  "presets": [
+    { "name": "Steps Section" }
+  ]
+}
+{% endschema %}
+
+<div class="steps-section" style="background: {{ section.settings.main_bg }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="steps-container" style="background: {{ section.settings.container_bg }};">
+
+    {% if section.settings.floating_logo %}
+      <img class="floating-logo" src="{{ section.settings.floating_logo | img_url: '200x' }}" alt="logo">
+    {% endif %}
+
+    <div class="steps-header">
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="steps-text">{{ section.settings.text }}</div>
+    </div>
+
+    <div class="steps-list">
+      {% for block in section.blocks %}
+        {% assign index = forloop.index %}
+        {% assign is_even = index | modulo: 2 %}
+
+        <div class="step-row {% if is_even == 0 %}even{% else %}odd{% endif %}">
+
+          <div class="step-number">
+            <span>{{ index }}</span>
+          </div>
+
+          <div class="step-content-box">
+            {% if block.settings.icon %}
+              <img class="step-icon" src="{{ block.settings.icon | img_url: '100x' }}" alt="icon">
+            {% endif %}
+            <div class="heading-text">
+              <h3 class="step-title">{{ block.settings.title }}</h3>
+              <div class="step-description">{{ block.settings.content }}</div>
+            </div>
+          </div>
+
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.button_text %}
+      <div class="steps-button-wrapper">
+        <a href="{{ section.settings.button_link }}" class="steps-button"
+           style="background: {{ section.settings.button_color }}; color: {{ section.settings.button_text_color }};">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<style>
+.steps-section {
+  padding: 0 20px;
+  width: 100%;
+}
+
+.steps-container {
+  padding: 60px 24px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.floating-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 110px;
+  opacity: 0.95;
+}
+
+.steps-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.steps-header h2 {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.steps-text {
+  max-width: 600px;
+  margin: auto;
+  color: #666;
+}
+
+.steps-list {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.step-content-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.step-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+}
+
+.step-row.odd .step-number { order: 1; }
+.step-row.odd .step-content-box { order: 2; }
+
+.step-row.even .step-number { order: 2; }
+.step-row.even .step-content-box { order: 1; }
+
+.step-number span {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-content-box {
+  background: #F0EAD8;
+  padding: 28px;
+  border-radius: 14px;
+  width: 75%;
+  box-shadow: 10px 12px 0 rgba(0, 0, 0), 6px 6px 14px rgba(0, 0, 0);
+}
+
+.step-icon {
+  width: 60px;
+}
+
+.step-title {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+
+.step-description p,
+.step-description ul {
+  margin-bottom: 0px;
+}
+
+.step-description {
+  font-size: 15px;
+  color: #555;
+}
+
+/* BUTTON */
+.steps-button-wrapper {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.steps-button {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.25s ease;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.3);
+}
+
+.steps-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 10px 10px 0 rgba(0,0,0,0.35);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .step-description ul {
+    margin-bottom: 0px;
+    text-align: left;
+  }
+
+  .step-number {
+    position: absolute;
+    top: -5px;
+    left: -20px;
+  }
+
+  .step-row {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .step-content-box {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .step-number span {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+}
+</style>
