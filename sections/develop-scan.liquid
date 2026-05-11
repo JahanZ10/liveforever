@@ -1,0 +1,1206 @@
+<div id="develop-scan" class="lf-develop-scan" style="background-color: {{ section.settings.bg_color }};">
+  <div class="lf-develop-scan__inner">
+    <!-- TOP ROW: HEADING + IMAGE -->
+    <div class="lf-develop-scan__top">
+      <div class="lf-develop-scan__top-text">
+        {% if section.settings.kicker != blank %}
+          <p class="lf-kicker">{{ section.settings.kicker }}</p>
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <h2 class="lf-heading-main">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.top_intro != blank %}
+          <p class="lf-top-intro">
+            {{ section.settings.top_intro }}
+          </p>
+        {% endif %}
+      </div>
+
+      {% if section.settings.hero_image != blank %}
+        <div class="lf-develop-scan__top-media">
+          <div class="lf-hero-image-wrap">
+            <img
+              src="{{ section.settings.hero_image | image_url: width: 700 }}"
+              alt="{{ section.settings.hero_image_alt | escape }}"
+              class="lf-hero-image"
+              loading="lazy"
+            >
+            <div class="lf-hero-tag">
+              <span>Lab Grade</span>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- MIDDLE: INFO CARDS -->
+    <div class="lf-info-grid">
+      <!-- Film We Process -->
+      <div class="lf-info-card lf-info-card--image-{{ section.settings.film_image_position | default: 'left' }}">
+        <div class="lf-info-card__inner">
+          {% if section.settings.film_image != blank %}
+            <div class="lf-info-card__media">
+              <img
+                src="{{ section.settings.film_image | image_url: width: 500 }}"
+                alt="{{ section.settings.film_image_alt | escape }}"
+                class="lf-info-card__img"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+
+          <div class="lf-info-card__content">
+            <div class="lf-info-card__header">
+              <div class="lf-info-icon lf-info-icon--film" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="lf-icon-svg">
+                  <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+                  <circle cx="9" cy="12" r="3"></circle>
+                  <path d="M15 9h3M15 12h3M15 15h3"></path>
+                </svg>
+              </div>
+              {% if section.settings.film_title != blank %}
+                <h3 class="lf-info-title">{{ section.settings.film_title }}</h3>
+              {% endif %}
+            </div>
+
+            <div class="lf-info-body">
+              {% if section.settings.film_body_1 != blank %}
+                <p class="lf-info-text">{{ section.settings.film_body_1 }}</p>
+              {% endif %}
+              {% if section.settings.film_body_2 != blank %}
+                <p class="lf-info-text">{{ section.settings.film_body_2 }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Turnaround Times -->
+      <div class="lf-info-card lf-info-card--tone lf-info-card--image-{{ section.settings.turnaround_image_position | default: 'left' }}">
+        <div class="lf-info-card__inner">
+          {% if section.settings.turnaround_image != blank %}
+            <div class="lf-info-card__media">
+              <img
+                src="{{ section.settings.turnaround_image | image_url: width: 500 }}"
+                alt="{{ section.settings.turnaround_image_alt | escape }}"
+                class="lf-info-card__img"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+
+          <div class="lf-info-card__content">
+            <div class="lf-info-card__header">
+              <div class="lf-info-icon lf-info-icon--time" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="lf-icon-svg">
+                  <circle cx="12" cy="12" r="8"></circle>
+                  <path d="M12 8v4l3 2"></path>
+                </svg>
+              </div>
+              {% if section.settings.turnaround_title != blank %}
+                <h3 class="lf-info-title">{{ section.settings.turnaround_title }}</h3>
+              {% endif %}
+            </div>
+
+            <div class="lf-info-body">
+              <div class="lf-turnaround-pills">
+                {% if section.settings.turnaround_c41 != blank %}
+                  <div class="lf-pill">
+                    <span class="lf-pill__label">C41</span>
+                    <span class="lf-pill__value">{{ section.settings.turnaround_c41 }}</span>
+                  </div>
+                {% endif %}
+                {% if section.settings.turnaround_bw != blank %}
+                  <div class="lf-pill">
+                    <span class="lf-pill__label">B&amp;W</span>
+                    <span class="lf-pill__value">{{ section.settings.turnaround_bw }}</span>
+                  </div>
+                {% endif %}
+                {% if section.settings.turnaround_ecn2 != blank %}
+                  <div class="lf-pill">
+                    <span class="lf-pill__label">ECN-2</span>
+                    <span class="lf-pill__value">{{ section.settings.turnaround_ecn2 }}</span>
+                  </div>
+                {% endif %}
+              </div>
+
+              {% if section.settings.turnaround_note_1 != blank %}
+                <p class="lf-note">{{ section.settings.turnaround_note_1 }}</p>
+              {% endif %}
+              {% if section.settings.turnaround_note_2 != blank %}
+                <p class="lf-note">{{ section.settings.turnaround_note_2 }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scanner Options -->
+      <div class="lf-info-card lf-info-card--image-{{ section.settings.scanner_image_position | default: 'left' }}">
+        <div class="lf-info-card__inner">
+          {% if section.settings.scanner_image != blank %}
+            <div class="lf-info-card__media">
+              <img
+                src="{{ section.settings.scanner_image | image_url: width: 500 }}"
+                alt="{{ section.settings.scanner_image_alt | escape }}"
+                class="lf-info-card__img"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+
+          <div class="lf-info-card__content">
+            <div class="lf-info-card__header">
+              <div class="lf-info-icon lf-info-icon--scanner" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="lf-icon-svg">
+                  <rect x="4" y="6" width="16" height="10" rx="2" ry="2"></rect>
+                  <path d="M4 10h16"></path>
+                  <circle cx="9" cy="13" r="1"></circle>
+                  <circle cx="12" cy="13" r="1"></circle>
+                  <circle cx="15" cy="13" r="1"></circle>
+                </svg>
+              </div>
+              {% if section.settings.scanner_title != blank %}
+                <h3 class="lf-info-title">{{ section.settings.scanner_title }}</h3>
+              {% endif %}
+            </div>
+
+            <div class="lf-info-body">
+              {% if section.settings.scanner_intro != blank %}
+                <p class="lf-info-text">{{ section.settings.scanner_intro }}</p>
+              {% endif %}
+
+              <ul class="lf-list lf-list--bullets">
+                {% if section.settings.scanner_item_1 != blank %}
+                  <li>{{ section.settings.scanner_item_1 }}</li>
+                {% endif %}
+                {% if section.settings.scanner_item_2 != blank %}
+                  <li>{{ section.settings.scanner_item_2 }}</li>
+                {% endif %}
+                {% if section.settings.scanner_item_3 != blank %}
+                  <li>{{ section.settings.scanner_item_3 }}</li>
+                {% endif %}
+              </ul>
+
+              {% if section.settings.scanner_link_text != blank and section.settings.scanner_link_url != blank %}
+                <p class="lf-link-text">
+                  {{ section.settings.scanner_link_prefix }}
+                  <a href="{{ section.settings.scanner_link_url }}" class="lf-link">{{ section.settings.scanner_link_text }}</a>.
+                </p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scan Preferences -->
+      <div class="lf-info-card lf-info-card--image-{{ section.settings.scan_pref_image_position | default: 'left' }}">
+        <div class="lf-info-card__inner">
+          {% if section.settings.scan_pref_image != blank %}
+            <div class="lf-info-card__media">
+              <img
+                src="{{ section.settings.scan_pref_image | image_url: width: 500 }}"
+                alt="{{ section.settings.scan_pref_image_alt | escape }}"
+                class="lf-info-card__img"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+
+          <div class="lf-info-card__content">
+            <div class="lf-info-card__header">
+              <div class="lf-info-icon lf-info-icon--prefs" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="lf-icon-svg">
+                  <path d="M4 9h10"></path>
+                  <path d="M10 15h10"></path>
+                  <circle cx="15" cy="9" r="2"></circle>
+                  <circle cx="9" cy="15" r="2"></circle>
+                </svg>
+              </div>
+              {% if section.settings.scan_pref_title != blank %}
+                <h3 class="lf-info-title">{{ section.settings.scan_pref_title }}</h3>
+              {% endif %}
+            </div>
+
+            <div class="lf-info-body">
+              {% if section.settings.scan_pref_body_1 != blank %}
+                <p class="lf-info-text">{{ section.settings.scan_pref_body_1 }}</p>
+              {% endif %}
+              {% if section.settings.scan_pref_body_2 != blank %}
+                <p class="lf-info-text">{{ section.settings.scan_pref_body_2 }}</p>
+              {% endif %}
+              {% if section.settings.scan_pref_body_3 != blank %}
+                <p class="lf-info-text">{{ section.settings.scan_pref_body_3 }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCAN SIZE CARDS -->
+    <div class="lf-scan-wrap">
+      <div class="lf-scan-header">
+        {% if section.settings.scan_sizes_title != blank %}
+          <h3 class="lf-scan-title">
+            <span class="lf-info-icon lf-info-icon--sizes" aria-hidden="true">
+              <svg viewBox="0 0 24 24" class="lf-icon-svg">
+                <rect x="3" y="8" width="7" height="10" rx="1"></rect>
+                <rect x="10" y="6" width="7" height="12" rx="1"></rect>
+                <rect x="17" y="4" width="4" height="14" rx="1"></rect>
+              </svg>
+            </span>
+            <span>{{ section.settings.scan_sizes_title }}</span>
+          </h3>
+        {% endif %}
+        {% if section.settings.scan_sizes_note != blank %}
+          <p class="lf-scan-sub">{{ section.settings.scan_sizes_note }}</p>
+        {% endif %}
+      </div>
+
+      <div class="lf-scan-cards">
+        {% for block in section.blocks %}
+          {% if block.type == 'scan_card' %}
+            <div class="lf-scan-card {% if block.settings.highlight %}lf-scan-card--highlight{% endif %}" {{ block.shopify_attributes }}>
+              <div>
+                <div class="lf-scan-card__header">
+                  {% if block.settings.card_title != blank %}
+                    <h4 class="lf-scan-card__title">{{ block.settings.card_title }}</h4>
+                  {% endif %}
+
+                  {% if block.settings.card_size != blank or block.settings.card_filesize != blank %}
+                    <p class="lf-scan-card__size">
+                      {% if block.settings.card_size != blank %}
+                        {{ block.settings.card_size }}
+                      {% endif %}
+                      {% if block.settings.card_size != blank and block.settings.card_filesize != blank %}
+                        &bull;
+                      {% endif %}
+                      {% if block.settings.card_filesize != blank %}
+                        {{ block.settings.card_filesize }}
+                      {% endif %}
+                    </p>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.card_desc != blank %}
+                  <p class="lf-scan-card__desc">{{ block.settings.card_desc }}</p>
+                {% endif %}
+              </div>
+
+              {% if block.settings.card_note != blank %}
+                <p class="lf-scan-card__note">{{ block.settings.card_note }}</p>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- BOTTOM: NEGATIVES + SCAN ONLY -->
+    <div class="lf-bottom-grid">
+      <div class="lf-info-card lf-info-card--border-top lf-info-card--image-{{ section.settings.negatives_image_position | default: 'left' }}">
+        <div class="lf-info-card__inner">
+          {% if section.settings.negatives_image != blank %}
+            <div class="lf-info-card__media">
+              <img
+                src="{{ section.settings.negatives_image | image_url: width: 500 }}"
+                alt="{{ section.settings.negatives_image_alt | escape }}"
+                class="lf-info-card__img"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+
+          <div class="lf-info-card__content">
+            <div class="lf-info-card__header">
+              <div class="lf-info-icon lf-info-icon--negatives" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="lf-icon-svg">
+                  <rect x="4" y="7" width="16" height="10" rx="1"></rect>
+                  <path d="M8 7v10M16 7v10"></path>
+                </svg>
+              </div>
+              {% if section.settings.negatives_title != blank %}
+                <h3 class="lf-info-title">{{ section.settings.negatives_title }}</h3>
+              {% endif %}
+            </div>
+            <div class="lf-info-body">
+              {% if section.settings.negatives_body_1 != blank %}
+                <p class="lf-info-text">{{ section.settings.negatives_body_1 }}</p>
+              {% endif %}
+              {% if section.settings.negatives_body_2 != blank %}
+                <p class="lf-info-text">{{ section.settings.negatives_body_2 }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lf-info-card lf-info-card--border-top lf-info-card--image-{{ section.settings.scan_only_image_position | default: 'left' }}">
+        <div class="lf-info-card__inner">
+          {% if section.settings.scan_only_image != blank %}
+            <div class="lf-info-card__media">
+              <img
+                src="{{ section.settings.scan_only_image | image_url: width: 500 }}"
+                alt="{{ section.settings.scan_only_image_alt | escape }}"
+                class="lf-info-card__img"
+                loading="lazy"
+              >
+            </div>
+          {% endif %}
+
+          <div class="lf-info-card__content">
+            <div class="lf-info-card__header">
+              <div class="lf-info-icon lf-info-icon--scanonly" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="lf-icon-svg">
+                  <rect x="4" y="5" width="16" height="10" rx="2"></rect>
+                  <path d="M4 15h16"></path>
+                </svg>
+              </div>
+              {% if section.settings.scan_only_title != blank %}
+                <h3 class="lf-info-title">{{ section.settings.scan_only_title }}</h3>
+              {% endif %}
+            </div>
+            <div class="lf-info-body">
+              {% if section.settings.scan_only_body != blank %}
+                <p class="lf-info-text">{{ section.settings.scan_only_body }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{ section.id }} .lf-develop-scan {
+    color: #010000;
+    padding: 4.5rem 1.8rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-develop-scan__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  /* TOP ROW */
+  #shopify-section-{{ section.id }} .lf-develop-scan__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 3.2rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-develop-scan__top-text {
+    max-width: 540px;
+  }
+
+  #shopify-section-{{ section.id }} .lf-kicker {
+    font-size: 0.95rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin: 0 0 0.8rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-heading-main {
+    font-size: clamp(3.1rem, 5vw, 3.9rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 0.8rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-top-intro {
+    font-size: 18px;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .lf-develop-scan__top-media {
+    justify-self: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .lf-hero-image-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(1, 0, 0, 0.18);
+    background: #000;
+  }
+
+  #shopify-section-{{ section.id }} .lf-hero-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .lf-hero-tag {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(1, 0, 0, 0.85);
+    color: #f0ead8;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* INFO GRID (CARDS) */
+    #shopify-section-{{ section.id }} .lf-info-grid {
+        display: grid;
+        gap: 1.6rem;
+        margin-bottom: 3rem;
+        grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+        #shopify-section-{{ section.id }} .lf-info-grid {
+            grid-template-columns: repeat(2, 1fr); 
+        }
+    }
+
+  #shopify-section-{{ section.id }} .lf-info-card {
+    border-radius: 18px;
+    padding: 2.4rem 2rem 2.3rem;
+    border: 1px solid rgba(1, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 12px 26px rgba(1, 0, 0, 0.06);
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-card--tone {
+    background: rgba(242, 101, 49, 0.06);
+    border-left: 3px solid {{ section.settings.accent_color }};
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-card--border-top {
+    border-top: 2px solid rgba(1, 0, 0, 0.16);
+  }
+
+  /* Inner layout for image + content */
+  #shopify-section-{{ section.id }} .lf-info-card__inner {
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-card--image-left .lf-info-card__media {
+    order: 0;
+  }
+  #shopify-section-{{ section.id }} .lf-info-card--image-left .lf-info-card__content {
+    order: 1;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-card--image-right .lf-info-card__media {
+    order: 1;
+  }
+  #shopify-section-{{ section.id }} .lf-info-card--image-right .lf-info-card__content {
+    order: 0;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-card__media {
+    flex: 0 0 38%;
+    max-width: 38%;
+    aspect-ratio: 1;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-card__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-card__content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-title {
+    font-size: clamp(18px, 4vw, 20px);
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-body {
+    margin-top: 0.1rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-text {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 8px 0 0rem;
+  }
+
+  /* ICONS */
+  #shopify-section-{{ section.id }} .lf-info-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: #010000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .lf-info-icon--time,
+  #shopify-section-{{ section.id }} .lf-info-icon--sizes,
+  #shopify-section-{{ section.id }} .lf-info-icon--prefs {
+    background: {{ section.settings.accent_color }};
+  }
+
+  #shopify-section-{{ section.id }} .lf-icon-svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: #f0ead8;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* TURNAROUND PILLS */
+  #shopify-section-{{ section.id }} .lf-turnaround-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0.2rem 0 0.7rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 1rem;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid rgba(1, 0, 0, 0.1);
+    font-size: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .lf-pill__label {
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-pill__value {
+    opacity: 0.9;
+  }
+
+  #shopify-section-{{ section.id }} .lf-note {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 0.3rem;
+  }
+
+  /* LISTS */
+  #shopify-section-{{ section.id }} .lf-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.2rem 0 0.7rem;
+    font-size: 0.98rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-list li {
+    position: relative;
+    padding-left: 1.3rem;
+    margin-bottom: 0.3rem;
+        font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .lf-list--bullets li::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: {{ section.settings.accent_color }};
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+  }
+
+  /* LINKS */
+  #shopify-section-{{ section.id }} .lf-link-text {
+    font-size: 0.96rem;
+    margin: 0.4rem 0 0;
+  }
+
+  #shopify-section-{{ section.id }} .lf-link {
+    color: {{ section.settings.accent_color }};
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .lf-link:hover {
+    text-decoration: none;
+  }
+
+  /* SCAN CARDS */
+  #shopify-section-{{ section.id }} .lf-scan-wrap {
+    margin-bottom: 3rem;
+    margin-top: 5rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 1.3rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: clamp(18px, 4vw, 20px);
+    letter-spacing: 0;
+    text-transform: capitalize;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-sub {
+    margin: 0;
+    max-width: 400px;
+    text-align: right;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.25rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-card {
+    border-radius: 18px;
+    padding: 2.3rem 2rem 2.1rem;
+    border: 1px solid rgba(1, 0, 0, 0.15);
+    background: #ffffff;
+    box-shadow: 0 10px 22px rgba(1, 0, 0, 0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-card--highlight {
+    border: 2px solid {{ section.settings.accent_color }};
+    background: #fec3401a;
+    transform: translateY(-2px);
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-card__title {
+    font-size: clamp(16px, 4vw, 18px);
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-card__size {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    background: #010000;
+    color: #f0ead8;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-card__desc {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .lf-scan-card__note {
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 0;
+    color: rgba(1, 0, 0, 0.75);
+  }
+
+  /* BOTTOM GRID */
+  #shopify-section-{{ section.id }} .lf-bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.6rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    #shopify-section-{{ section.id }} .lf-develop-scan {
+      padding: 3.6rem 1.4rem;
+    }
+
+    #shopify-section-{{ section.id }} .lf-develop-scan__top {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .lf-develop-scan__top-media {
+      justify-self: stretch;
+    }
+
+    #shopify-section-{{ section.id }} .lf-scan-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .lf-scan-sub {
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .lf-info-card__inner {
+      flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .lf-info-card__media {
+      max-width: 100%;
+      flex: 0 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #shopify-section-{{ section.id }} .lf-develop-scan {
+      padding: 3.2rem 1.1rem;
+    }
+
+    #shopify-section-{{ section.id }} .lf-heading-main {
+      font-size: 2.7rem;
+    }
+
+    #shopify-section-{{ section.id }} .lf-info-card {
+      padding: 1.2rem 1.15rem 1.05rem;
+    }
+
+    #shopify-section-{{ section.id }} .lf-scan-card__header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .lf-scan-card__size {
+      margin-top: 0.3rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Develop & Scan",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "LIVE FOREVER FILM LAB"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "DEVELOP & SCAN"
+    },
+    {
+      "type": "textarea",
+      "id": "top_intro",
+      "label": "Intro text below heading",
+      "default": "Premium film developing and high-quality scans, ready for socials, prints, and serious post-processing."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image (right side)"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Hero image alt text",
+      "default": "Film negatives and scanner at the lab"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background colour",
+      "default": "#f0ead8"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#f26531"
+    },
+
+    {
+      "type": "text",
+      "id": "film_title",
+      "label": "Film section title",
+      "default": "Film We Process"
+    },
+    {
+      "type": "textarea",
+      "id": "film_body_1",
+      "label": "Film body 1",
+      "default": "We develop C41 colour negative, black & white, and ECN-2 cine film in 35mm and 120 formats."
+    },
+    {
+      "type": "textarea",
+      "id": "film_body_2",
+      "label": "Film body 2",
+      "default": "We only use genuine Kodak chemistry, and run quality checks every time our machines power on."
+    },
+    {
+      "type": "image_picker",
+      "id": "film_image",
+      "label": "Film card image"
+    },
+    {
+      "type": "text",
+      "id": "film_image_alt",
+      "label": "Film card image alt text",
+      "default": "Film rolls and negatives on a table"
+    },
+    {
+      "type": "select",
+      "id": "film_image_position",
+      "label": "Film card image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+
+    {
+      "type": "text",
+      "id": "turnaround_title",
+      "label": "Turnaround title",
+      "default": "Turnaround Times"
+    },
+    {
+      "type": "text",
+      "id": "turnaround_c41",
+      "label": "C41 turnaround",
+      "default": "Same Day - 24 Hours"
+    },
+    {
+      "type": "text",
+      "id": "turnaround_bw",
+      "label": "B&W turnaround",
+      "default": "2-3 business days"
+    },
+    {
+      "type": "text",
+      "id": "turnaround_ecn2",
+      "label": "ECN-2 turnaround",
+      "default": "2-3 business days"
+    },
+    {
+      "type": "textarea",
+      "id": "turnaround_note_1",
+      "label": "Turnaround note 1",
+      "default": "For Drop-box & mail-in orders, turnaround begins the day your film arrives at the lab."
+    },
+    {
+      "type": "textarea",
+      "id": "turnaround_note_2",
+      "label": "Turnaround note 2",
+      "default": "Business days: We develop Monday–Saturday."
+    },
+    {
+      "type": "image_picker",
+      "id": "turnaround_image",
+      "label": "Turnaround card image"
+    },
+    {
+      "type": "text",
+      "id": "turnaround_image_alt",
+      "label": "Turnaround card image alt text",
+      "default": "Film processing machine at work"
+    },
+    {
+      "type": "select",
+      "id": "turnaround_image_position",
+      "label": "Turnaround card image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "right"
+    },
+
+    {
+      "type": "text",
+      "id": "scanner_title",
+      "label": "Scanner options title",
+      "default": "Our Scanner Options"
+    },
+    {
+      "type": "textarea",
+      "id": "scanner_intro",
+      "label": "Scanner intro",
+      "default": "Our default scanner for all scan sizes is the state-of-the-art Noritsu, the lab’s workhorse. Prefer a different vibe? We give you the freedom to select from our classic scanners from the golden era of film:"
+    },
+    {
+      "type": "text",
+      "id": "scanner_item_1",
+      "label": "Scanner item 1",
+      "default": "Noritsu – High detail, accurate colours and warm tones"
+    },
+    {
+      "type": "text",
+      "id": "scanner_item_2",
+      "label": "Scanner item 2",
+      "default": "Fujifilm Frontier – Smooth, rich and vibrant"
+    },
+    {
+      "type": "text",
+      "id": "scanner_item_3",
+      "label": "Scanner item 3",
+      "default": "Kodak Pakon (‘Socials’ scan-size only) – A nostalgic look from the heyday of Kodak film labs. Highly recommended."
+    },
+    {
+      "type": "text",
+      "id": "scanner_link_prefix",
+      "label": "Scanner link prefix text",
+      "default": "Want to compare? Read more about these classics, and see sample scans"
+    },
+    {
+      "type": "text",
+      "id": "scanner_link_text",
+      "label": "Scanner link text",
+      "default": "here"
+    },
+    {
+      "type": "url",
+      "id": "scanner_link_url",
+      "label": "Scanner link URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "scanner_image",
+      "label": "Scanner card image"
+    },
+    {
+      "type": "text",
+      "id": "scanner_image_alt",
+      "label": "Scanner card image alt text",
+      "default": "Flatbed film scanner and negatives"
+    },
+    {
+      "type": "select",
+      "id": "scanner_image_position",
+      "label": "Scanner card image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+
+    {
+      "type": "text",
+      "id": "scan_pref_title",
+      "label": "Scan preferences title",
+      "default": "Scan Preferences"
+    },
+    {
+      "type": "textarea",
+      "id": "scan_pref_body_1",
+      "label": "Scan preferences body 1",
+      "default": "Our goal is simple: to deliver the perfect scans for your personal workflow."
+    },
+    {
+      "type": "textarea",
+      "id": "scan_pref_body_2",
+      "label": "Scan preferences body 2",
+      "default": "For Standard and Pro sized scans, let us know your scan contrast preference (High / Standard / Flat), or leave it to our lab standard finish."
+    },
+    {
+      "type": "textarea",
+      "id": "scan_pref_body_3",
+      "label": "Scan preferences body 3",
+      "default": "Whatever your preference, your scans will always be consistent and premium quality."
+    },
+    {
+      "type": "image_picker",
+      "id": "scan_pref_image",
+      "label": "Scan preferences card image"
+    },
+    {
+      "type": "text",
+      "id": "scan_pref_image_alt",
+      "label": "Scan preferences image alt text",
+      "default": "Image editing and colour grading on a screen"
+    },
+    {
+      "type": "select",
+      "id": "scan_pref_image_position",
+      "label": "Scan preferences image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "right"
+    },
+
+    {
+      "type": "text",
+      "id": "scan_sizes_title",
+      "label": "Scan sizes section title",
+      "default": "Scan Sizes"
+    },
+    {
+      "type": "textarea",
+      "id": "scan_sizes_note",
+      "label": "Scan sizes short note",
+      "default": "Choose the scan size that fits your workflow – from socials to gallery-sized prints."
+    },
+
+    {
+      "type": "text",
+      "id": "negatives_title",
+      "label": "Negatives title",
+      "default": "Negatives"
+    },
+    {
+      "type": "textarea",
+      "id": "negatives_body_1",
+      "label": "Negatives body 1",
+      "default": "By default, we cut and sleeve negatives in strips of six and store for three months. Collect them during reception hours, or schedule a pick-up and we’ll leave at our secure lab-door collection box (accessible 7 Days, 11am-5:30pm)."
+    },
+    {
+      "type": "textarea",
+      "id": "negatives_body_2",
+      "label": "Negatives body 2",
+      "default": "Need your negatives uncut or mailed? Just let us know."
+    },
+    {
+      "type": "image_picker",
+      "id": "negatives_image",
+      "label": "Negatives card image"
+    },
+    {
+      "type": "text",
+      "id": "negatives_image_alt",
+      "label": "Negatives image alt text",
+      "default": "Sleeved negatives stored in archival pages"
+    },
+    {
+      "type": "select",
+      "id": "negatives_image_position",
+      "label": "Negatives image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+
+    {
+      "type": "text",
+      "id": "scan_only_title",
+      "label": "Scan-only title",
+      "default": "Scan-Only"
+    },
+    {
+      "type": "textarea",
+      "id": "scan_only_body",
+      "label": "Scan-only body",
+      "default": "Already have developed negatives? We can re-scan them in any of the sizes above, to our premium standard."
+    },
+    {
+      "type": "image_picker",
+      "id": "scan_only_image",
+      "label": "Scan-only card image"
+    },
+    {
+      "type": "text",
+      "id": "scan_only_image_alt",
+      "label": "Scan-only image alt text",
+      "default": "Stack of film negatives ready for scanning"
+    },
+    {
+      "type": "select",
+      "id": "scan_only_image_position",
+      "label": "Scan-only image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "right"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "scan_card",
+      "name": "Scan size card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card title",
+          "default": "Social"
+        },
+        {
+          "type": "text",
+          "id": "card_size",
+          "label": "Dimensions",
+          "default": "1500 × 1000"
+        },
+        {
+          "type": "text",
+          "id": "card_filesize",
+          "label": "Approx. file size",
+          "default": "2 MB"
+        },
+        {
+          "type": "textarea",
+          "id": "card_desc",
+          "label": "Description",
+          "default": "Our smallest size scan - ideal for social media and up to 4×6 prints. Scanned on Noritsu by default*, colour & density corrected and our signature finishing applied."
+        },
+        {
+          "type": "textarea",
+          "id": "card_note",
+          "label": "Footnote / note",
+          "default": "*Choose Kodak Pakon or Fujifilm Frontier if you prefer."
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Highlight card?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Develop & Scan",
+    }
+  ]
+}
+{% endschema %}

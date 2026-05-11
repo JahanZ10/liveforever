@@ -1,0 +1,40 @@
+.card__inner{
+    border-radius: 8px !important;
+    overflow: hidden;
+    background: #F0EAD8;
+}
+h3.card__heading a,
+h3.card__heading {
+    font-family: var(--font-body-family) !important;
+    font-weight: 500;
+    font-size: 20px;
+    margin: 0;
+}
+h3.card__heading.h5 {
+    margin-top: 6px;
+}
+.card__information {
+    padding-top: 0px;
+        position: relative;
+}
+p.meta-quantity {
+    border: 1px solid black;
+    position: absolute;
+    top: 20%;
+    right: 4%;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: black;
+}
+.card__badge.bottom.left {
+    gap: 6px;
+    display: flex;
+}
+span.badge.badge--bottom-left {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+}

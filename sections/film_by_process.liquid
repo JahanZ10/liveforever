@@ -1,0 +1,242 @@
+<div class="film_by_process">
+  <div class="container">
+    <h2 class="film-title">{{ section.settings.heading }}</h2>
+    <p class="film-subtitle">{{ section.settings.subheading }}</p>
+
+    <div class="film-grid">
+      {% for block in section.blocks %}
+        <div class="film-card">
+          <div class="film-card-title">{{ block.settings.title }}</div>
+          <p class="film-card-text">{{ block.settings.text }}</p>
+          {% if block.settings.button_text != blank %}
+            <a href="{{ block.settings.button_link }}" class="film-btn">{{ block.settings.button_text }}</a>
+          {% endif %}
+
+        {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: '600x' }}" width="auto" height="auto" alt="{{ block.settings.title }}" class="film-image" loading="lazy">
+          {% endif %}
+
+          <div class="film-formats">
+            {% if block.settings.show_35mm %}
+              <div class="film-tag">{{ block.settings.mm_text }}</div>
+            {% endif %}
+            {% if block.settings.show_120 %}
+              <div class="film-tag">{{ block.settings.twenty_text }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.film_by_process {
+  background: {{ section.settings.bg_color }};
+  color: {{ section.settings.text_color }};
+  text-align: center;
+  padding: 50px 5px;
+}
+.film_by_process .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.film-title {
+  font-size: 32px;
+  margin: 0 auto 10px;
+}
+.film-subtitle {
+    font-size: 14px;
+    margin: 0 auto 40px;
+    line-height: normal;
+    max-width: 520px;
+    color: #000;
+}
+.film-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.film-card {
+  background: #F0EAD8;
+  border-radius: 8px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.film-card-title {
+  font-size: 20px;
+  margin: 0 auto 10px;
+  color: #000;
+  line-height: normal;
+}
+.film-card-text {
+  font-size: 12px;
+  line-height: normal;
+  color: #000;
+  margin: 0 auto 15px;
+  max-width: 220px;
+}
+.film-image {
+  margin: 70px 0;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0px;
+}
+.film-btn {
+  background: #F26531;
+  color: #fff;
+  text-decoration: none;
+  padding: 7px 20px;
+  border-radius: 4px;
+  transition: 0.3s;
+  font-size: 14px;
+  line-height: normal;
+}
+.film-formats {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.film-tag {
+  background: #fff;
+  color: #000;
+  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+
+@media (max-width: 925px) {
+  .film-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+.film_by_process {
+    padding: 30px 5px;
+}
+}
+</style>
+
+{% schema %}
+{
+  "name": "Film By Process",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Film We Process"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub Heading",
+      "default": "Old school film, new school lab. We develop with care, precision, and chemistry that lasts."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF8EF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "film_card",
+      "name": "Film Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Film Type Title",
+          "default": "C-41 Colour Negative"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "The standard for vibrant color photography."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Film Image"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "BUY NOW"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_35mm",
+          "label": "Show 35mm Tag",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "mm_text",
+          "label": "Text 35mm",
+          "default": "35mm"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_120",
+          "label": "Show 120 Tag",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "twenty_text",
+          "label": "Text 120",
+          "default": "120"
+        },
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Film By Process",
+      "category": "Custom Sections",
+      "blocks": [
+        {
+          "type": "film_card",
+          "settings": {
+            "title": "C-41 Colour Negative",
+            "text": "The standard for vibrant color photography."
+          }
+        },
+        {
+          "type": "film_card",
+          "settings": {
+            "title": "Black & White",
+            "text": "Classic monochrome developing for images with rich tones."
+          }
+        },
+        {
+          "type": "film_card",
+          "settings": {
+            "title": "ECN-2 Cine",
+            "text": "For motion picture stock and cine enthusiasts."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

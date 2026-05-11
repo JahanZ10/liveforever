@@ -1,0 +1,130 @@
+<div class="product_banner">
+    <div class="page-width">
+        <div class="product_container">
+            <div class="left_side_image">
+                <div class="left_img_p">
+                    <img src="{{ section.settings.left_img_p | img_url:"" }}" width="auto" height="auto">
+                </div>
+            </div>
+            <div class="center_side_image">
+                <div class="center_img_p">
+                    <img src="{{ section.settings.center_img_p | img_url:"" }}" width="auto" height="auto">
+                </div>
+                <div class="heading_with_num">
+                    <div class="heading_contact">{{ section.settings.head_contact }}</div>
+                    <a href="tel:{{ section.settings.contact_num }}" class="number_contact">{{ section.settings.contact_num }}</a>
+                </div>
+            </div>
+            <div class="right_side_image">
+                <div class="right_img_p">
+                    <img src="{{ section.settings.right_img_p | img_url:"" }}" width="auto" height="auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product_banner {
+        padding: 50px 0 0;
+    }
+    .product_container {
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        gap: 40px;
+    }
+    .product_container img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    .center_side_image {
+        max-width: 600px;
+        width: 100%;
+        margin: 0 0 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .center_img_p {
+        max-width: 450px;
+        width: 450px;
+    }
+    .heading_with_num {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+    .heading_with_num .heading_contact{
+        color: #000;
+        font-size: 14px;
+    }
+    .heading_with_num .number_contact{
+        color: #eb560c;
+        font-size: 14px;
+        text-decoration: none;
+    }
+    .heading_with_num .number_contact:hover{
+        text-decoration: underline;
+    }
+    @media screen and (max-width: 850px){
+        .product_container{
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .center_img_p {
+            max-width: 100%;
+            width: 100%;
+        }
+        .center_side_image {
+            margin: 0 0 5px;
+        }
+        .product_banner {
+            padding: 30px 0 0;
+        }
+    } 
+</style>
+
+{% schema %}
+{
+    "name": "Product Banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "left_img_p",
+            "label": "Select Left Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "center_img_p",
+            "label": "Select Center Image"
+        },
+        {
+            "type": "text",
+            "id": "head_contact",
+            "label": "Text",
+            "default": "Help is Here:"
+        },
+        {
+            "type": "text",
+            "id": "contact_num",
+            "label": "Number add here",
+            "default": "+923001234567"
+        },
+        {
+            "type": "image_picker",
+            "id": "right_img_p",
+            "label": "Select Right Image"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product Banner",
+        }
+    ]
+}
+{% endschema %}

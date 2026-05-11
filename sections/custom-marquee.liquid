@@ -1,0 +1,198 @@
+<style>
+.marquee {
+  --gap: {{ section.settings.gap | append: 'px' }};
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--gap);
+  background: {{ section.settings.bg_color }};
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+}
+
+.marquee__content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--gap);
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+.enable-animation .marquee__content {
+  animation: scroll {{ section.settings.speed }}s linear infinite;
+}
+
+ul.marquee__content li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  white-space: nowrap;
+}
+
+.marquee__content span {
+  flex: 0 0 auto;
+  color: {{ section.settings.text_color }};
+  font-size: {{ section.settings.text_size }}px;
+  text-align: center;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: capitalize;
+}
+
+.marquee__content img {
+  width: auto;
+  height: auto;
+  max-width: 27px;
+  object-fit: contain;
+}
+</style>
+
+<section class="enable-animation">
+  <div class="marquee">
+    <ul class="marquee__content">
+      {% for block in section.blocks %}
+        <li>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: '100x' }}" alt="{{ block.settings.text | escape }}">
+          {% endif %}
+          <span>{{ block.settings.text }}</span>
+        </li>
+      {% endfor %}
+      {% for block in section.blocks %}
+        <li>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: '100x' }}" alt="{{ block.settings.text | escape }}">
+          {% endif %}
+          <span>{{ block.settings.text }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <!-- Duplicate once for seamless looping -->
+    <ul class="marquee__content" aria-hidden="true">
+      {% for block in section.blocks %}
+        <li>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: '100x' }}" alt="{{ block.settings.text | escape }}">
+          {% endif %}
+          <span>{{ block.settings.text }}</span>
+        </li>
+      {% endfor %}
+      {% for block in section.blocks %}
+        <li>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: '100x' }}" alt="{{ block.settings.text | escape }}">
+          {% endif %}
+          <span>{{ block.settings.text }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Marquee",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size (px)",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between items (px)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top (px)",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom (px)",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Scroll duration (seconds)",
+      "min": 5,
+      "max": 80,
+      "step": 1,
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Marquee Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Your marquee text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Optional image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Marquee",
+      "category": "Text",
+      "blocks": [{ "type": "item" }, { "type": "item" }, { "type": "item" }]
+    }
+  ]
+}
+{% endschema %}

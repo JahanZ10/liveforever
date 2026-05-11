@@ -1,0 +1,125 @@
+<style>
+  .complementary-swiper-wrapper {
+      position: relative;
+      width: 100%;
+  }
+
+  .complementary-swiper .swiper-slide {
+      height: auto;
+  }
+  .complementary-swiper-heading h4 {
+      font-size: 20px;
+  }
+  .complementary-swiper-heading .complementary-swiper-button-next,
+  .complementary-swiper-heading .complementary-swiper-button-prev {
+    color: transparent;
+    border: 1px solid #f26531;
+    background: #fff;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .complementary-swiper-button-next svg, .complementary-swiper-button-prev svg {
+    width: 24px !important;
+    height: 100%;
+    object-fit: contain;
+    transform-origin: center;
+    width: 100%;
+    color: #f26531;
+    pointer-events: none;
+  }
+  .complementary-swiper-button-next, .complementary-swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  .complementary-swiper-button-next.swiper-button-disabled,
+  .complementary-swiper-button-prev.swiper-button-disabled{
+    opacity: 0.5;
+  }
+  .complementary-swiper-button-next{
+    right: 10px;
+  }
+  .complementary-swiper-button-prev{
+    left: 10px;
+  }
+</style>
+<div class="complementary-swiper-heading">
+  {% if block.settings.block_heading %}
+    <h4>{{ block.settings.block_heading }}</h4>
+  {% endif %}
+  <div class="complementary-swiper-wrapper">
+    <div class="swiper complementary-swiper">
+      <div class="swiper-wrapper">
+        {% assign complementary_products = product.metafields.custom.complementary %}
+
+        {% if complementary_products != blank %}
+          {% for prod in complementary_products.value %}
+            {% assign product = prod.value %}
+            <div class="swiper-slide complementary-slide">
+              {% render 'card-product',
+                card_product: prod,
+                media_aspect_ratio: 'square',
+                image_shape: section.settings.image_shape,
+                lazy_load: lazy_load,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: section.settings.show_vendor,
+                show_rating: section.settings.show_rating,
+                skip_styles: skip_card_product_styles,
+                section_id: section.id,
+                quick_add: section.settings.quick_add
+              %}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Swiper Nav -->
+    <div class="complementary-swiper-button-prev">
+      <svg viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g style="transform: rotate(180deg); transform-origin: center;">
+          <path class="chevron" d="M12.7615 1.26501L20.5 9.00357L12.7615 16.7421" stroke="currentColor" stroke-width="1.75"></path>
+          <path class="stem" d="M0 9L20.3091 9.00001" stroke="currentColor" stroke-width="1.75"></path>
+        </g>
+      </svg>
+    </div>
+    <div class="complementary-swiper-button-next">
+      <svg viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g style="transform: rotate(0deg); transform-origin: center;">
+          <path class="chevron" d="M12.7615 1.26501L20.5 9.00357L12.7615 16.7421" stroke="currentColor" stroke-width="1.75"></path>
+          <path class="stem" d="M0 9L20.3091 9.00001" stroke="currentColor" stroke-width="1.75"></path>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof Swiper !== 'undefined') {
+      const complementarySwiper = new Swiper('.complementary-swiper', {
+        slidesPerView: 1.3,
+        spaceBetween: 16,
+        loop: false,
+        navigation: {
+          nextEl: '.complementary-swiper-button-next',
+          prevEl: '.complementary-swiper-button-prev',
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 1.8,
+          },
+          1024: {
+            slidesPerView: 2.2,
+          },
+        },
+      });
+    } else {
+      console.error('Swiper JS not loaded!');
+    }
+  });
+</script>

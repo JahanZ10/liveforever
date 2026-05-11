@@ -1,0 +1,2442 @@
+<section class="film-order-section">
+  <div class="container">
+    <h2 class="section-title">Start Your Film Order</h2>
+    {% comment %} <p class="section-desc">
+      Choose your film type, scan size, and preferences — we'll handle the rest. Designed for professionals and
+      hobbyists who want their film treated with care.
+    </p> {% endcomment %}
+
+    <form
+      id="filmOrderForm"
+      action="/contact#contact_form"
+      method="post"
+      accept-charset="UTF-8"
+      class="film-order-form"
+      novalidate
+    >
+      <input type="hidden" name="form_type" value="customer">
+      <input type="hidden" name="utf8" value="✓">
+
+      <div class="chose_steps_form_first">
+        <div class="chose_steps_duplicate">
+        {% comment %} <div class="form-title">Start Your Film Order</div>
+        <p class="form-desc">Tell us about your film -- we'll develop, scan, and send it back with care.</p> {% endcomment %}
+
+        <div class="form-group">
+          <label for="instructions">Select Dropbox location (or select ‘Mail in’ for Mail in Orders’)</label>
+          <div class="custom-select" data-name="location">
+            <div class="select-display">
+              <span class="selected-text">Select Drop Box Locations</span>
+              <span class="arrow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 30.727 30.727"
+                  fill="currentColor"
+                >
+                  <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536
+                    c0.977-0.977,2.559-0.976,3.536,0l11.095,11.093L26.461,6.647
+                    c0.977-0.976,2.559-0.976,3.535,0
+                    C30.971,7.624,30.971,9.206,29.994,10.183z"></path>
+                </svg>
+              </span>
+            </div>
+            <ul class="select-options">
+              <li data-value="location_1">Live Forever Lab (Street Level)</li>
+              <li data-value="location_2">Live Forever Lab Door (1st Floor)</li>
+              <li data-value="location_3">The Soda Factory (Street Level)</li>
+              <li data-value="location_4">Live Forever Lab Door (1st Floor)</li>
+              <li data-value="location_5">Title Store Barangaroo (In-Store)</li>
+              <li data-value="location_6">Mail In</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Film Block Wrapper (for cloning) -->
+        <div class="film-block">
+          <button type="button" class="remove-film-btn" style="display: none;" aria-label="Remove film block">×</button>
+          <input type="hidden" name="contact[Film Type]" class="sync-filmtype">
+          <input type="hidden" name="contact[Film Format]" class="sync-filmformat">
+          <input type="hidden" name="contact[Quantity]" class="sync-quantity" value="1">
+          <input type="hidden" name="contact[Film Scan Size]" class="sync-filmscanSize">
+          <input type="hidden" name="contact[Film Scanner]" class="sync-filmscanner" value="Noritsu">
+          <input type="hidden" name="contact[Film Contrast]" class="sync-filmcontrast" value="Standard">
+          <input type="hidden" name="contact[Film Brightness]" class="sync-filmbrightness" value="Standard">
+          
+          <div class="form-group film-type">
+            <div class="film-type-wrapper">
+              <div class="custom-select form-row" data-name="filmType">
+                <div class="form-group">
+                  <label>Select Your Film Type and Qty</label>
+                  <div class="select-display">
+                    <span class="selected-text">Film Type</span>
+                    <span class="arrow">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 30.727 30.727"
+                        fill="currentColor"
+                      >
+                        <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536
+                          c0.977-0.977,2.559-0.976,3.536,0l11.095,11.093L26.461,6.647
+                          c0.977-0.976,2.559-0.976,3.535,0
+                          C30.971,7.624,30.971,9.206,29.994,10.183z"/>
+                      </svg>
+                    </span>
+                  </div>
+                  <ul class="select-options">
+                    <li data-value="C41">C41</li>
+                    <li data-value="B&W">B&W</li>
+                    <li data-value="ECN-2">ECN-2</li>
+                  </ul>
+                </div>
+                <div class="form-group">
+                  <label style="opacity:0;">Select your Film Format</label>
+                  <div class="custom-select" data-name="filmFormat">
+                    <div class="select-display">
+                      <span class="selected-text">Film Format</span>
+                      <span class="arrow">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 30.727 30.727"
+                          fill="currentColor"
+                        >
+                          <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536
+                            c0.977-0.977,2.559-0.976,3.536,0l11.095,11.093L26.461,6.647
+                            c0.977-0.976,2.559-0.976,3.535,0
+                            C30.971,7.624,30.971,9.206,29.994,10.183z"/>
+                        </svg>
+                      </span>
+                    </div>
+                    <ul class="select-options">
+                      <li data-value="35mm">35mm</li>
+                      <li data-value="120">120</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="qty-controls">
+                <label>Qty</label>
+                <div class="qty-controls-input">
+                  <input type="number" value="1" min="1" class="qty-input" readonly>
+                  <div class="plus_minus_btn">
+                    <button type="button" class="qty-btn plus">+</button>
+                    <button type="button" class="qty-btn minus">-</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Select your scan size <span style="color: #dc3545;">*</span></label>
+              <div class="custom-select" data-name="filmscanSize">
+                <div class="select-display">
+                  <span class="selected-text">Scan size</span>
+                  <span class="arrow">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 30.727 30.727"
+                      fill="currentColor"
+                    >
+                      <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536
+                        c0.977-0.977,2.559-0.976,3.536,0l11.095,11.093L26.461,6.647
+                        c0.977-0.976,2.559-0.976,3.535,0
+                        C30.971,7.624,30.971,9.206,29.994,10.183z"/>
+                    </svg>
+                  </span>
+                </div>
+                <ul class="select-options">
+                  <li data-value="Social">Social (Medium)</li>
+                  <li data-value="Classic">Classic (Large)</li>
+                  <li data-value="Pro">Pro (Largest)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Select your scanner</label>
+              <div class="custom-select" data-name="filmscanner">
+                <div class="select-display">
+                  <span class="selected-text" data-value="Noritsu">Noritsu (default)</span>
+                  <span class="arrow">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 30.727 30.727"
+                      fill="currentColor"
+                    >
+                      <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536
+                        c0.977-0.977,2.559-0.976,3.536,0l11.095,11.093L26.461,6.647
+                        c0.977-0.976,2.559-0.976,3.535,0
+                        C30.971,7.624,30.971,9.206,29.994,10.183z"/>
+                    </svg>
+                  </span>
+                </div>
+                <ul class="select-options">
+                  <li class="active" data-value="Noritsu">Noritsu (default)</li>
+                  <li data-value="Fujifilm Frontier">Fujifilm Frontier</li>
+                   {% comment %} <li data-value="Fujifilm Frontier">Kodak Pakon</li> {% endcomment %}
+                
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCAN PREFERENCES -->
+          <div class="form-title" style="margin-top: 24px; font-size: 16px;">
+            Tell us your scan preferences for the film type (Classic and Pro size scan only)
+          </div>
+          <div class="form-row custom-radio">
+            <div class="form-group">
+              <label>Select your Contrast</label>
+              <div class="custom-select" data-name="filmcontrast">
+                <div class="select-display" style="display:none;">
+                  <span class="selected-text">Standard</span>
+                  <span class="arrow">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 30.727 30.727"
+                      fill="currentColor"
+                    >
+                      <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536
+                        c0.977-0.977,2.559-0.976,3.536,0l11.095,11.093L26.461,6.647
+                        c0.977-0.976,2.559-0.976,3.535,0
+                        C30.971,7.624,30.971,9.206,29.994,10.183z"/>
+                    </svg>
+                  </span>
+                </div>
+                <ul class="select-options">
+                  <li data-value="Standard" class="active">Standard</li>
+                  {% comment %} <li data-value="High">High</li> {% endcomment %}
+                  <li data-value="Low (Flat)">Low (Flat)</li>
+                </ul>
+              </div>
+            </div>
+
+            {% comment %} <div class="form-group">
+              <label>Select Brightness</label>
+              <div class="custom-select" data-name="filmbrightness">
+                <div class="select-display" style="display:none;">
+                  <span class="selected-text">Standard</span>
+                  <span class="arrow">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 30.727 30.727"
+                      fill="currentColor"
+                    >
+                      <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536
+                        c0.977-0.977,2.559-0.976,3.536,0l11.095,11.093L26.461,6.647
+                        c0.977-0.976,2.559-0.976,3.535,0
+                        C30.971,7.624,30.971,9.206,29.994,10.183z"/>
+                    </svg>
+                  </span>
+                </div>
+                <ul class="select-options">
+                  <li data-value="Standard" class="active">Standard</li>
+                  <li data-value="Bright">Bright</li>
+                  <li data-value="Dark">Dark</li>
+                </ul>
+              </div>
+            </div> {% endcomment %}
+          </div>
+        </div>
+        <!-- End Film Block -->
+        </div>
+
+        <button type="button" class="add-film-btn">Add another film type +</button>
+      </div>
+
+      <!-- Second & Third Sections (unchanged) -->
+      <div class="chose_steps_form_second">
+          <div class="form-title" style="margin-top:30px;">Your Contact Details</div>
+         <div class="form-row">
+          <div class="form-group">
+            <label>Name <span style="color:red;">*</span></label>
+            <input type="text" name="contact[name]" placeholder="John Doe" required class="select-display">
+          </div>
+          <div class="form-group half">
+            <label>Email <span style="color:red;">*</span></label>
+            <input type="email" name="contact[email]" placeholder="john@example.com" required class="select-display" id="emailInput">
+            <div id="emailError" style="display: none; color: #dc3545; font-size: 12px; margin-top: 4px;"></div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half">
+            <label>Phone</label>
+            <input type="tel" name="contact[phone]" placeholder="+1 (555) 123-4567" class="select-display">
+          </div>
+          <div class="form-group">
+            <label>Instagram (optional)</label>
+            <input type="text" name="contact[instagram]" placeholder="@yourhandle" class="select-display">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin:30px 0;">
+          <label style="display:flex;align-items:flex-start;gap:14px;cursor:pointer;font-size:16px;">
+            <input type="checkbox" name="contact[share_images]" value="Yes – you may share my images">
+            <span>Yes, it's okay to share my images on your Instagram & website (we'll always tag you!)</span>
+          </label>
+        </div>
+        <div class="turnaround">
+          <div class="heading_like">What would you like us to do with your negatives?</div>
+          <div class="negatives-options">
+            <label class="option active">
+              <input type="radio" name="negatives" checked>
+              <span>Keep (Collect in-store)</span>
+            </label>
+            <label class="option">
+              {% assign mail = all_products['mail-to-me'] %}
+              <input type="radio" name="negatives" value="{{ mail.selected_or_first_available_variant.id }}" data-price="{{ mail.selected_or_first_available_variant.price | money }}">
+              <span>Mail to me</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="negatives">
+              <span>Dispose</span>
+            </label>
+          </div>
+
+          <p class="note">You can collect your negatives at our lab</p>
+          <div class="address">
+            <div>Address:</div>
+            <div>
+              <span>Australia – Filmforever HQ, 2/62 Albemarle Street, Williamstown North, VIC, 3016</span><br>
+              <a href="#" target="_blank">View on Google Maps</a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="instructions">Order Comments</label>
+            <textarea
+              id="instructions"
+              rows="3"
+              placeholder="Let us know any special notes or creative preferences."
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="chose_steps_form_third">
+        <div class="order-summary">
+          <div class="order_heading">Order Summary</div>
+          <p class="order-summary-text">No items selected</p>
+          <div class="order-items-container"></div>
+          <p class="notes" style="display: none;"></p>
+          <div class="order-total">
+            <span>Total:</span>
+            <span class="total-price">$0 USD</span>
+          </div>
+        </div>
+
+        <div class="terms">
+          <div class="terms_service">Terms of service</div>
+          <p>
+            All orders arriving at the same time must be submitted under one form. The number of rolls can be adjusted
+            next to the products you've selected.
+          </p>
+          <p>
+            If you need to amend an already submitted form, email us at
+            <a href="mailto:support@filmforever.com" class="support_text">support@Filmforever.com</a>
+          </p>
+
+          <label class="agree-label">
+            <input type="checkbox" required class="agree-checkbox">
+            <span>I Agree</span>
+          </label>
+        </div>
+
+        <div class="form-error-message" style="display: none; color: red; margin-top: 10px; font-size: 14px;"></div>
+
+        <button type="submit" class="checkout-btn">
+           Submit your order <span class="checkout-total">$0 USD</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Order Confirm Popup -->
+  <div id="orderConfirmPopup" class="popup-overlay" style="display:none;">
+    <div class="popup-content">
+      <div style="margin:0px;">Film roll</div>
+      <h3>Almost there!</h3>
+
+      <p style="font-size:17px;line-height:1.6;color:#333;">
+        Hey <strong><span id="popupName">friend</span></strong
+        >, Welcome to the family! This is your first order with us — we're so excited to develop your rolls!
+      </p>
+
+      <div
+        class="order-summary"
+        style="background:#fff9f0;border:2px dashed #ff9d43;padding:10px;border-radius:12px;margin:10px 0;"
+      >
+        <p style="margin:10px 0 0;">
+          <strong>Order ID:</strong>
+          <span id="popupOrderId" style="font-size:22px;color:#d35400;font-weight:800;">ABC001</span>
+        </p>
+        <div id="popupFilmDetails" style="margin:10px 0 0;">
+          <!-- Film details will be populated here -->
+        </div>
+        <p style="margin:0;"><strong>Total Rolls:</strong> <span id="popupQuantity">1</span> roll(s)</p>
+      </div>
+
+      <p style="color:#555;font-size:15px;margin-bottom:25px;">
+        We'll email you confirmation + drop-off details soon. Can't wait to see your shots!
+      </p>
+
+      <div id="popupError" style="display: none; color: #dc3545; margin: 10px 0; font-size: 14px; font-weight: 500; padding: 10px; background: #fee; border: 1px solid #fcc; border-radius: 4px;"></div>
+
+      <div class="popup-buttons">
+        <button type="button" id="cancelPopup">Wait, let me check again</button>
+        <button type="button" id="confirmSubmit">Yes, Submit My Order!</button>
+      </div>
+    </div>
+  </div>
+</section>
+{% assign raw_handles = 'b-w,
+   ecn-2,
+   c41'
+  | split: ','
+%}
+<script type="application/json" id="film-varaints-data">
+  [
+  {%- for h in raw_handles -%}
+    {%- assign clean_handle = h | strip -%}
+    {%- assign p = all_products[clean_handle] -%}
+    {%- if p -%}
+      {
+        "handle": "{{ p.handle }}",
+        "title": "{{ p.title | escape }}",
+        "item_ids": [{% for v in p.variants %}"{{ v.id }}"{% unless forloop.last %}, {% endunless %}{% endfor %}],
+        "variants": [
+          {%- for v in p.variants -%}
+          { "id": "{{ v.id }}", "title": "{{ v.title | escape }}", "option1": "{{ v.option1 | escape }}", "option2": "{{ v.option2 | escape }}", "option3": "{{ v.option3 | escape }}", "price": {{ v.price }} }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }{% unless forloop.last %},{% endunless %}
+    {%- endif -%}
+  {% endfor %}
+  ]
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Load variant data (includes price per variant from Shopify)
+    const filmVariantsScript = document.getElementById('film-varaints-data');
+    const filmVariantsData = filmVariantsScript ? JSON.parse(filmVariantsScript.textContent) : [];
+
+    window.allSelectedFilms = [];
+    window.globalNotes = '';
+    window.globalLocation = '';
+    window.globalNegatives = 'Keep (Collect in-store)';
+
+    // Normalize scanner option3 to dropdown value (Noritsu / Fujifilm Frontier)
+    function normalizeScannerOption(option3) {
+      if (!option3) return '';
+      const s = String(option3).trim();
+      if (s.indexOf('Noritsu') !== -1) return 'Noritsu';
+      if (s.indexOf('Fujifilm') !== -1) return 'Fujifilm Frontier';
+      return s;
+    }
+
+    // Get variants for a film type and format from filmVariantsData
+    function getVariantsForFormat(filmType, format) {
+      const typeNorm = normalizeFilmTypeTitle(filmType || '');
+      const film = filmVariantsData.find((f) => normalizeFilmTypeTitle(f.title) === typeNorm);
+      if (!film || !Array.isArray(film.variants)) return [];
+      const formatTrim = (format || '').trim();
+      return film.variants.filter((v) => (v.option1 || '').trim() === formatTrim);
+    }
+
+    // Populate scan size and scanner dropdowns from variants (options driven by film-variants-data)
+    function updateOptionsVisibility(block) {
+      const typeEl = block.querySelector('[data-name="filmType"] .selected-text');
+      const formatEl = block.querySelector('[data-name="filmFormat"] .selected-text');
+      const scanSizeSelect = block.querySelector('[data-name="filmscanSize"]');
+      const scannerSelect = block.querySelector('[data-name="filmscanner"]');
+      
+      const filmType = typeEl?.textContent.trim();
+      const format = formatEl?.textContent.trim();
+      
+      if (!filmType || filmType === 'Film Type') {
+        return;
+      }
+
+      const variants = getVariantsForFormat(filmType, format);
+      if (variants.length === 0) {
+        // No format selected or no variants: leave dropdowns as-is (static or placeholder)
+        return;
+      }
+
+      // Unique option2 (scan size) and option3 (scanner) from variants
+      const scanSizeSet = new Map();
+      const scannerSet = new Map();
+      variants.forEach((v) => {
+        const o2 = (v.option2 || '').trim();
+        const o3 = (v.option3 || '').trim();
+        const sizeKey = o2.split('(')[0].trim();
+        if (o2 && !scanSizeSet.has(sizeKey)) scanSizeSet.set(sizeKey, o2);
+        const scannerKey = normalizeScannerOption(o3);
+        if (scannerKey && !scannerSet.has(scannerKey)) scannerSet.set(scannerKey, o3);
+      });
+
+      const scanSizeOptions = Array.from(scanSizeSet.entries()).sort((a, b) => a[1].localeCompare(b[1]));
+      const scannerOptions = Array.from(scannerSet.entries());
+
+      // Rebuild scan size dropdown
+      if (scanSizeSelect) {
+        const ul = scanSizeSelect.querySelector('.select-options');
+        const displayText = scanSizeSelect.querySelector('.selected-text');
+        const currentDisplay = displayText?.textContent.trim();
+        const currentSizeKey = currentDisplay ? currentDisplay.split('(')[0].trim() : '';
+        const currentInList = scanSizeOptions.some(([k]) => k === currentSizeKey);
+        const firstSize = scanSizeOptions[0];
+        const selectedSize = currentInList ? currentSizeKey : (firstSize ? firstSize[0] : null);
+        const selectedDisplay = selectedSize ? (scanSizeSet.get(selectedSize) || selectedSize) : 'Scan size';
+
+        ul.innerHTML = '';
+        scanSizeOptions.forEach(([dataVal, displayVal]) => {
+          const li = document.createElement('li');
+          li.dataset.value = dataVal;
+          li.textContent = displayVal;
+          if (dataVal === selectedSize) li.classList.add('active');
+          ul.appendChild(li);
+        });
+        if (displayText) displayText.textContent = selectedDisplay;
+        const hiddenInput = block.querySelector('.sync-filmscanSize');
+        if (hiddenInput) hiddenInput.value = selectedSize || '';
+
+        // Re-attach click handler for new list items
+        const container = scanSizeSelect;
+        const options = ul;
+        const text = displayText;
+        const dataName = container.dataset.name;
+        options.querySelectorAll('li').forEach((li) => {
+          li.onclick = (e) => {
+            e.stopPropagation();
+            options.querySelectorAll('li').forEach((i) => i.classList.remove('active'));
+            li.classList.add('active');
+            if (text) text.textContent = li.textContent.trim();
+            document.querySelectorAll('.select-options').forEach((o) => { if (o !== options) o.style.display = 'none'; });
+            container.querySelector('.select-display')?.classList.remove('open');
+            options.style.display = 'none';
+            if (dataName === 'filmscanSize') container.classList.remove('error');
+            const blk = container.closest('.film-block');
+            if (blk) { updateOptionsVisibility(blk); syncHiddenInputs(blk); }
+            setTimeout(updateAllFilms, 50);
+          };
+        });
+      }
+
+      // Rebuild scanner dropdown
+      if (scannerSelect) {
+        const ul = scannerSelect.querySelector('.select-options');
+        const displayText = scannerSelect.querySelector('.selected-text');
+        const currentDisplay = displayText?.textContent.trim();
+        const currentScannerKey = currentDisplay ? normalizeScannerOption(currentDisplay) : 'Noritsu';
+        const currentInList = scannerOptions.some(([k]) => k === currentScannerKey);
+        const firstScanner = scannerOptions[0];
+        const selectedKey = currentInList ? currentScannerKey : (firstScanner ? firstScanner[0] : 'Noritsu');
+        const selectedDisplay = selectedKey ? (scannerSet.get(selectedKey) || selectedKey) : 'Noritsu (default)';
+
+        ul.innerHTML = '';
+        scannerOptions.forEach(([dataVal, displayVal]) => {
+          const li = document.createElement('li');
+          li.dataset.value = dataVal;
+          li.textContent = displayVal;
+          if (dataVal === selectedKey) li.classList.add('active');
+          ul.appendChild(li);
+        });
+        if (displayText) displayText.textContent = selectedDisplay;
+        const hiddenInput = block.querySelector('.sync-filmscanner');
+        if (hiddenInput) hiddenInput.value = selectedKey || 'Noritsu';
+
+        const scannerOptionsEl = scannerSelect.querySelector('.select-options');
+        const scannerContainer = scannerSelect;
+        const scannerText = displayText;
+        scannerOptionsEl.querySelectorAll('li').forEach((li) => {
+          li.onclick = (e) => {
+            e.stopPropagation();
+            scannerOptionsEl.querySelectorAll('li').forEach((i) => i.classList.remove('active'));
+            li.classList.add('active');
+            if (scannerText) scannerText.textContent = li.textContent.trim();
+            document.querySelectorAll('.select-options').forEach((o) => { if (o !== scannerOptionsEl) o.style.display = 'none'; });
+            scannerContainer.querySelector('.select-display')?.classList.remove('open');
+            scannerOptionsEl.style.display = 'none';
+            const blk = scannerContainer.closest('.film-block');
+            if (blk) { syncHiddenInputs(blk); }
+            setTimeout(updateAllFilms, 50);
+          };
+        });
+      }
+    }
+
+    // Normalize film type for matching (JSON may have &amp; etc.)
+    function normalizeFilmTypeTitle(t) {
+      if (!t) return '';
+      const div = document.createElement('div');
+      div.innerHTML = t.trim();
+      return div.textContent.trim();
+    }
+    // Resolve variant from film variants data by current selection (returns full variant object with id, title, price or null)
+    function findVariant(filmType, format, scanSize, scanner) {
+      const typeNorm = normalizeFilmTypeTitle(filmType || '');
+      const film = filmVariantsData.find((f) => normalizeFilmTypeTitle(f.title) === typeNorm);
+      if (!film || !Array.isArray(film.variants)) return null;
+      const option2Size = (s) => (s || '').split('(')[0].trim();
+      const variant = film.variants.find((v) => {
+        const opt1 = (v.option1 || '').trim();
+        const opt2 = option2Size(v.option2);
+        const opt3 = (v.option3 || '').trim();
+        const matchFormat = opt1 === (format || '').trim();
+        const matchSize = opt2 === (scanSize || '').trim();
+        const matchScanner = (scanner && (opt3.indexOf(scanner) === 0 || opt3.includes(scanner))) || (!scanner && opt3.toLowerCase().includes('noritsu'));
+        return matchFormat && matchSize && matchScanner;
+      });
+      return variant || null;
+    }
+    function findVariantId(filmType, format, scanSize, scanner) {
+      const v = findVariant(filmType, format, scanSize, scanner);
+      return v ? v.id : null;
+    }
+
+    function getBlockData(block) {
+      const typeEl = block.querySelector('[data-name="filmType"] .selected-text');
+      const formatEl = block.querySelector('[data-name="filmFormat"] .selected-text');
+      const scanSizeEl = block.querySelector('[data-name="filmscanSize"] .selected-text');
+      const scannerEl = block.querySelector('[data-name="filmscanner"] .selected-text');
+      const contrastEl = block.querySelector('[data-name="filmcontrast"] .selected-text');
+      const brightnessEl = block.querySelector('[data-name="filmbrightness"] .selected-text');
+      const qty = parseInt(block.querySelector('.qty-input')?.value) || 1;
+
+      const type = typeEl?.textContent.trim();
+      const format = formatEl?.textContent.trim();
+      let scanSize = scanSizeEl?.textContent.trim();
+      // Extract just the size name (remove parenthetical)
+      if (scanSize) {
+        scanSize = scanSize.split('(')[0].trim();
+      }
+      
+      let scanner = scannerEl?.textContent.trim() || 'Noritsu (default)';
+      // Normalize scanner name
+      if (scanner.includes('Noritsu')) scanner = 'Noritsu';
+      else if (scanner.includes('Fujifilm')) scanner = 'Fujifilm Frontier';
+      
+      const contrast = contrastEl?.textContent.trim() || 'Standard';
+      const brightness = brightnessEl?.textContent.trim() || 'Standard';
+
+      // Validation: Check if required fields are selected
+      if (!type || type === 'Film Type') return null;
+      if (!format || format === 'Film Format') return null;
+      if (!scanSize || scanSize === 'Scan size') return null;
+
+      // Resolve variant from film-variants-data; price comes from variant (Shopify stores price in cents)
+      const variantMatch = findVariant(type, format, scanSize, scanner);
+      if (!variantMatch) return null;
+      const price = (variantMatch.price != null) ? Number(variantMatch.price) / 100 : 0;
+      if (price <= 0) return null;
+
+      const variantId = String(variantMatch.id);
+      const variantTitle = (variantMatch.title || '').trim() || (function () {
+        const parts = [];
+        if (format) parts.push(format);
+        if (scanSize && scanSize !== 'Scan size') parts.push(scanSize);
+        if (scanner && scanner !== 'Noritsu') parts.push(scanner);
+        return parts.length > 0 ? parts.join(' / ') : type;
+      })();
+
+      // Build display text
+      const displayText = `${qty}× ${type}`;
+
+      return {
+        quantity: qty,
+        price: price,
+        variantId: variantId,
+        variantTitle: variantTitle,
+        display: displayText,
+        brightness: brightness,
+        format: format,
+        scanSize: scanSize,
+        scanner: scanner,
+        contrast: contrast,
+        filmType: type,
+      };
+    }
+
+    function updateAllFilms() {
+      window.allSelectedFilms = [];
+
+      document.querySelectorAll('.film-block').forEach((block) => {
+        const data = getBlockData(block);
+        if (data) window.allSelectedFilms.push(data);
+      });
+
+      window.globalNotes = document.getElementById('instructions')?.value.trim() || '';
+      const locEl = document.querySelector('[data-name="location"] .selected-text');
+      window.globalLocation = locEl?.textContent.trim() || '';
+
+      const checkedNeg = document.querySelector('input[name="negatives"]:checked');
+      window.globalNegatives = checkedNeg
+        ? checkedNeg.nextElementSibling.textContent.trim()
+        : 'Keep (Collect in-store)';
+
+      const container = document.querySelector('.order-items-container');
+      const summaryText = document.querySelector('.order-summary-text');
+      const totalEl = document.querySelector('.total-price');
+      const checkoutBtnTotal = document.querySelector('.checkout-total');
+      const notesEl = document.querySelector('.order-summary .notes');
+
+      if (window.allSelectedFilms.length === 0) {
+        summaryText.textContent = 'No items selected';
+        container.innerHTML = '';
+        totalEl.textContent = '$0.00 USD';
+        checkoutBtnTotal.textContent = '$0 USD';
+        notesEl.style.display = 'none';
+        return;
+      }
+
+      // Check if "Mail to me" is selected
+      const mailToMeRadio = document.querySelector('input[name="negatives"][value]');
+      const isMailToMeSelected = mailToMeRadio && mailToMeRadio.checked;
+      
+      // Count total items including mail product if selected
+      let totalItemCount = window.allSelectedFilms.length;
+      if (isMailToMeSelected) {
+        totalItemCount += 1;
+      }
+      
+      summaryText.textContent = `${totalItemCount} item${
+        totalItemCount > 1 ? 's' : ''
+      } selected`;
+      container.innerHTML = '';
+      let grandTotal = 0;
+
+      window.allSelectedFilms.forEach((item) => {
+        // Ensure price is a valid number
+        const itemPrice = parseFloat(item.price) || 0;
+        const itemQty = parseInt(item.quantity) || 1;
+        const lineTotal = itemPrice * itemQty;
+        grandTotal += lineTotal;
+
+        // Format price with 2 decimal places
+        const formattedPrice = lineTotal.toFixed(2);
+        const formattedUnitPrice = itemPrice.toFixed(2);
+
+        const div = document.createElement('div');
+        div.style.cssText = 'padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px;';
+        div.innerHTML = `
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-weight: 600;">
+            <span>${item.display}</span>
+            <span>$${formattedPrice} USD</span>
+          </div>
+          <div style="color: #666; font-size: 13px; margin-left: 4px;">
+            <strong>Selected Options</strong>: ${item.variantTitle} / ${item.brightness}
+            ${itemQty > 1 ? `<br><span style="color: #999;">Unit Price: $${formattedUnitPrice} USD × ${itemQty}</span>` : ''}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+
+      // Add "Mail to me" product to order summary if selected
+      if (isMailToMeSelected && mailToMeRadio.dataset.price) {
+        const mailPriceStr = String(mailToMeRadio.dataset.price).replace(/[,\s$]/g, '');
+        const mailPrice = parseFloat(mailPriceStr);
+        if (!isNaN(mailPrice) && mailPrice > 0) {
+          grandTotal += mailPrice;
+          const mailDiv = document.createElement('div');
+          mailDiv.style.cssText = 'padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px;';
+          mailDiv.innerHTML = `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-weight: 600;">
+              <span>Mail to me</span>
+              <span>$${mailPrice.toFixed(2)} USD</span>
+            </div>
+          `;
+          container.appendChild(mailDiv);
+        }
+      }
+
+      let notesHtml = '';
+      if (window.globalNotes) notesHtml += `<strong>Order Comments:</strong> ${window.globalNotes}<br>`;
+      if (window.globalLocation && !window.globalLocation.includes('Select Drop')) {
+        notesHtml += `<strong>Drop-box Location:</strong> ${window.globalLocation}<br>`;
+      }
+      notesHtml += `<strong>Negatives:</strong> ${window.globalNegatives}`;
+
+      notesEl.innerHTML = notesHtml;
+      notesEl.style.display = 'block';
+
+      // Format total price with 2 decimal places
+      const totalFormatted = `$${grandTotal.toFixed(2)} USD`;
+      if (totalEl) totalEl.textContent = totalFormatted;
+      if (checkoutBtnTotal) checkoutBtnTotal.textContent = totalFormatted;
+    }
+
+    document.querySelectorAll('input[name="negatives"]').forEach((radio) => {
+      radio.addEventListener('change', function () {
+        document.querySelectorAll('.negatives-options .option').forEach((label) => {
+          label.classList.remove('active');
+        });
+        if (this.checked) {
+          this.parentElement.classList.add('active');
+        }
+        syncGlobalInputs();
+        updateAllFilms();
+      });
+    });
+
+    document.querySelector('input[name="negatives"]:checked')?.parentElement.classList.add('active');
+
+    function initCustomSelect(container) {
+      const display = container.querySelector('.select-display');
+      const options = container.querySelector('.select-options');
+      if (!options) return;
+      
+      const text = display?.querySelector('.selected-text');
+      const price = display?.querySelector('.selected-price');
+      const dataName = container.dataset.name;
+      const isCustomRadio = container.closest('.custom-radio') !== null;
+
+      // Only add click handler to display if it's visible
+      if (display && display.style.display !== 'none') {
+        display.onclick = (e) => {
+          e.stopPropagation();
+          const isOpen = options.style.display === 'block';
+          document.querySelectorAll('.select-options').forEach((o) => {
+            if (!o.closest('.custom-radio')) {
+              o.style.display = 'none';
+            }
+          });
+          document.querySelectorAll('.select-display').forEach((d) => d.classList.remove('open'));
+          if (!isCustomRadio) {
+            options.style.display = isOpen ? 'none' : 'block';
+            display.classList.toggle('open', !isOpen);
+          }
+        };
+      }
+
+      options.querySelectorAll('li').forEach((li) => {
+        li.onclick = (e) => {
+          e.stopPropagation();
+          options.querySelectorAll('li').forEach((i) => i.classList.remove('active'));
+          li.classList.add('active');
+          
+          if (text) {
+            text.textContent = li.textContent.trim();
+          }
+          
+          // Remove error styling when a required field is selected
+          if (dataName === 'filmFormat' || dataName === 'filmscanSize' || dataName === 'filmType') {
+            if (display) display.classList.remove('error');
+          }
+          
+          if (!isCustomRadio) {
+            options.style.display = 'none';
+            if (display) display.classList.remove('open');
+          }
+          
+          // Update options visibility and sync hidden inputs
+          const block = container.closest('.film-block');
+          if (block) {
+            updateOptionsVisibility(block);
+            syncHiddenInputs(block);
+          }
+          
+          // Update all films after a short delay to ensure DOM is updated
+          setTimeout(() => {
+            updateAllFilms();
+          }, 50);
+        };
+      });
+    }
+
+    function initQty(block) {
+      const input = block.querySelector('.qty-input');
+      const plus = block.querySelector('.plus');
+      const minus = block.querySelector('.minus');
+      if (!input) return;
+      plus.onclick = () => {
+        input.stepUp();
+        syncHiddenInputs(block);
+        updateAllFilms();
+      };
+      minus.onclick = () => {
+        input.stepDown();
+        syncHiddenInputs(block);
+        updateAllFilms();
+      };
+      input.onchange = () => {
+        syncHiddenInputs(block);
+        updateAllFilms();
+      };
+    }
+
+    function initFilmBlock(block) {
+      block.querySelectorAll('.custom-select').forEach(initCustomSelect);
+      initQty(block);
+    }
+
+    document.querySelector('.add-film-btn')?.addEventListener('click', function () {
+      const original = document.querySelector('.film-block');
+      const clone = original.cloneNode(true);
+
+      clone.querySelector('.qty-input').value = 1;
+      clone.querySelectorAll('.selected-text').forEach((span) => {
+        const parent = span.closest('.custom-select');
+        if (!parent) return;
+        const name = parent.dataset.name;
+        if (name === 'filmType') span.textContent = 'Film Type';
+        else if (name === 'filmFormat') span.textContent = 'Film Format';
+        else if (name === 'filmscanSize') span.textContent = 'Scan size';
+        else if (name === 'filmscanner') span.textContent = 'Noritsu (default)';
+        else if (name === 'filmcontrast') span.textContent = 'Standard';
+        else if (name === 'filmbrightness') span.textContent = 'Standard';
+      });
+      clone.querySelectorAll('.select-options li').forEach((li) => li.classList.remove('active'));
+      const scannerLi = clone.querySelector('[data-name="filmscanner"] li[data-value="Noritsu"]');
+      if (scannerLi) scannerLi.classList.add('active');
+      
+      const priceEl = clone.querySelector('[data-name="filmType"] .selected-price');
+      if (priceEl) priceEl.textContent = '$0 USD';
+
+      const contrastSelect = clone.querySelector('[data-name="filmcontrast"] .select-options');
+      const firstContrastOption = contrastSelect?.querySelector('li');
+      if (firstContrastOption) {
+        firstContrastOption.classList.add('active');
+      }
+      const brightnessSelect = clone.querySelector('[data-name="filmbrightness"] .select-options');
+      const firstBrightnessOption = brightnessSelect?.querySelector('li');
+      if (firstBrightnessOption) {
+        firstBrightnessOption.classList.add('active');
+      }
+
+      clone.style.marginTop = '40px';
+      clone.style.paddingTop = '30px';
+      clone.style.borderTop = '2px dashed #ccc';
+      
+      // Show remove button for cloned blocks
+      const removeBtn = clone.querySelector('.remove-film-btn');
+      if (removeBtn) {
+        removeBtn.style.display = 'block';
+        removeBtn.addEventListener('click', function() {
+          clone.remove();
+          updateAllFilms();
+        });
+      }
+
+      this.before(clone);
+      initFilmBlock(clone);
+      updateOptionsVisibility(clone);
+      syncHiddenInputs(clone);
+      updateAllFilms();
+    });
+    
+    // Add remove button functionality to all existing film blocks (except first)
+    document.querySelectorAll('.film-block').forEach((block, index) => {
+      if (index > 0) {
+        const removeBtn = block.querySelector('.remove-film-btn');
+        if (removeBtn) {
+          removeBtn.style.display = 'block';
+          removeBtn.addEventListener('click', function() {
+            block.remove();
+            updateAllFilms();
+          });
+        }
+      }
+    });
+
+    // Initialize location select
+    const locationSelect = document.querySelector('[data-name="location"]');
+    if (locationSelect) {
+      initCustomSelect(locationSelect);
+      locationSelect.querySelectorAll('.select-options li').forEach((li) => {
+        li.addEventListener('click', () => {
+          syncGlobalInputs();
+        });
+      });
+    }
+
+    document.getElementById('instructions')?.addEventListener('input', () => {
+      syncGlobalInputs();
+      updateAllFilms();
+    });
+
+    // Email validation function
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    // Real-time email validation
+    const emailInput = document.getElementById('emailInput');
+    const emailError = document.getElementById('emailError');
+    if (emailInput && emailError) {
+      emailInput.addEventListener('blur', function() {
+        const email = this.value.trim();
+        if (email && !validateEmail(email)) {
+          emailError.textContent = 'Please enter a valid email address.';
+          emailError.style.display = 'block';
+          this.style.borderColor = '#dc3545';
+        } else {
+          emailError.style.display = 'none';
+          this.style.borderColor = '';
+        }
+      });
+
+      emailInput.addEventListener('input', function() {
+        const email = this.value.trim();
+        if (email && !validateEmail(email)) {
+          emailError.textContent = 'Please enter a valid email address.';
+          emailError.style.display = 'block';
+          this.style.borderColor = '#dc3545';
+        } else if (email) {
+          emailError.style.display = 'none';
+          this.style.borderColor = '';
+        }
+      });
+    }
+    
+    document.querySelectorAll('input[name="negatives"]').forEach((radio) => {
+      radio.addEventListener('change', updateAllFilms);
+    });
+
+    document.addEventListener('click', (e) => {
+      // Only close if clicking outside a select
+      if (!e.target.closest('.custom-select')) {
+        document.querySelectorAll('.select-options').forEach((o) => (o.style.display = 'none'));
+        document.querySelectorAll('.select-display').forEach((d) => d.classList.remove('open'));
+      }
+    });
+
+    // Initialize all film blocks and selects
+    document.querySelectorAll('.film-block').forEach((block) => {
+      initFilmBlock(block);
+      updateOptionsVisibility(block);
+      syncHiddenInputs(block);
+    });
+    document.querySelectorAll('.custom-select').forEach((select) => {
+      if (!select.closest('.film-block')) {
+        initCustomSelect(select);
+      }
+    });
+    
+    // Set default scanner text if not already set
+    document.querySelectorAll('[data-name="filmscanner"]').forEach((scannerSelect) => {
+      const text = scannerSelect.querySelector('.selected-text');
+      if (text && text.textContent.trim() === 'Noritsu (default)') {
+        const activeLi = scannerSelect.querySelector('li.active');
+        if (activeLi) {
+          text.textContent = activeLi.textContent.trim();
+        }
+      }
+    });
+    
+    // Set default contrast and brightness text
+    document.querySelectorAll('[data-name="filmcontrast"]').forEach((contrastSelect) => {
+      const text = contrastSelect.querySelector('.selected-text');
+      const activeLi = contrastSelect.querySelector('li.active');
+      if (text && activeLi) {
+        text.textContent = activeLi.textContent.trim();
+      }
+    });
+    
+    document.querySelectorAll('[data-name="filmbrightness"]').forEach((brightnessSelect) => {
+      const text = brightnessSelect.querySelector('.selected-text');
+      const activeLi = brightnessSelect.querySelector('li.active');
+      if (text && activeLi) {
+        text.textContent = activeLi.textContent.trim();
+      }
+    });
+    
+    // Initial update
+    setTimeout(() => {
+      document.querySelectorAll('.film-block').forEach(updateOptionsVisibility);
+      updateAllFilms();
+    }, 200);
+
+    // Function to validate required fields in all film blocks
+    function validateRequiredFields() {
+      const errors = [];
+      const filmBlocks = document.querySelectorAll('.film-block');
+      
+      filmBlocks.forEach((block, index) => {
+        const typeEl = block.querySelector('[data-name="filmType"] .selected-text');
+        const formatEl = block.querySelector('[data-name="filmFormat"] .selected-text');
+        const scanSizeEl = block.querySelector('[data-name="filmscanSize"] .selected-text');
+        
+        const type = typeEl?.textContent.trim();
+        const format = formatEl?.textContent.trim();
+        const scanSize = scanSizeEl?.textContent.trim();
+        
+        // Remove previous error styling
+        block.querySelectorAll('.select-display').forEach(display => {
+          display.classList.remove('error');
+        });
+        
+        // Check required fields
+        if (!type || type === 'Film Type') {
+          const typeDisplay = block.querySelector('[data-name="filmType"] .select-display');
+          if (typeDisplay) typeDisplay.classList.add('error');
+          errors.push(`Film block ${index + 1}: Please select a Film Type`);
+        }
+        
+        if (!format || format === 'Film Format') {
+          const formatDisplay = block.querySelector('[data-name="filmFormat"] .select-display');
+          if (formatDisplay) formatDisplay.classList.add('error');
+          errors.push(`Film block ${index + 1}: Please select a Film Format`);
+        }
+        
+        if (!scanSize || scanSize === 'Scan size') {
+          const scanSizeDisplay = block.querySelector('[data-name="filmscanSize"] .select-display');
+          if (scanSizeDisplay) scanSizeDisplay.classList.add('error');
+          errors.push(`Film block ${index + 1}: Please select a Scan Size`);
+        }
+      });
+      
+      return errors;
+    }
+
+    // Sync hidden inputs with form values
+    function syncHiddenInputs(block) {
+      const typeEl = block.querySelector('[data-name="filmType"] .selected-text');
+      const formatEl = block.querySelector('[data-name="filmFormat"] .selected-text');
+      const scanSizeEl = block.querySelector('[data-name="filmscanSize"] .selected-text');
+      const scannerEl = block.querySelector('[data-name="filmscanner"] .selected-text');
+      const contrastEl = block.querySelector('[data-name="filmcontrast"] .selected-text');
+      const brightnessEl = block.querySelector('[data-name="filmbrightness"] .selected-text');
+      const qtyInput = block.querySelector('.qty-input');
+      
+      const type = typeEl?.textContent.trim();
+      const format = formatEl?.textContent.trim();
+      let scanSize = scanSizeEl?.textContent.trim();
+      if (scanSize) scanSize = scanSize.split('(')[0].trim();
+      let scanner = scannerEl?.textContent.trim();
+      if (scanner.includes('Noritsu')) scanner = 'Noritsu';
+      else if (scanner.includes('Fujifilm')) scanner = 'Fujifilm Frontier';
+      const contrast = contrastEl?.textContent.trim() || 'Standard';
+      const brightness = brightnessEl?.textContent.trim() || 'Standard';
+      const qty = qtyInput?.value || '1';
+      
+      const hiddenType = block.querySelector('.sync-filmtype');
+      const hiddenFormat = block.querySelector('.sync-filmformat');
+      const hiddenScanSize = block.querySelector('.sync-filmscanSize');
+      const hiddenScanner = block.querySelector('.sync-filmscanner');
+      const hiddenContrast = block.querySelector('.sync-filmcontrast');
+      const hiddenBrightness = block.querySelector('.sync-filmbrightness');
+      const hiddenQty = block.querySelector('.sync-quantity');
+      
+      if (hiddenType && type && type !== 'Film Type') hiddenType.value = type;
+      if (hiddenFormat && format && format !== 'Film Format') hiddenFormat.value = format;
+      if (hiddenScanSize && scanSize && scanSize !== 'Scan size') hiddenScanSize.value = scanSize;
+      if (hiddenScanner && scanner) hiddenScanner.value = scanner;
+      if (hiddenContrast) hiddenContrast.value = contrast;
+      if (hiddenBrightness) hiddenBrightness.value = brightness;
+      if (hiddenQty) hiddenQty.value = qty;
+    }
+
+    // Sync location and negatives
+    function syncGlobalInputs() {
+      const locEl = document.querySelector('[data-name="location"] .selected-text');
+      const location = locEl?.textContent.trim() || '';
+      const checkedNeg = document.querySelector('input[name="negatives"]:checked');
+      const negatives = checkedNeg
+        ? checkedNeg.nextElementSibling.textContent.trim()
+        : 'Keep (Collect in-store)';
+      
+      // Create or update hidden inputs for location and negatives
+      let locationInput = document.querySelector('input[name="contact[Drop Box Location]"]');
+      if (!locationInput) {
+        locationInput = document.createElement('input');
+        locationInput.type = 'hidden';
+        locationInput.name = 'contact[Drop Box Location]';
+        document.getElementById('filmOrderForm').appendChild(locationInput);
+      }
+      locationInput.value = location;
+      
+      let negativesInput = document.querySelector('input[name="contact[Negatives]"]');
+      if (!negativesInput) {
+        negativesInput = document.createElement('input');
+        negativesInput.type = 'hidden';
+        negativesInput.name = 'contact[Negatives]';
+        document.getElementById('filmOrderForm').appendChild(negativesInput);
+      }
+      negativesInput.value = negatives;
+      
+      // Sync notes
+      const notes = document.getElementById('instructions')?.value.trim() || '';
+      let notesInput = document.querySelector('input[name="contact[Order Comments]"]');
+      if (!notesInput) {
+        notesInput = document.createElement('input');
+        notesInput.type = 'hidden';
+        notesInput.name = 'contact[Order Comments]';
+        document.getElementById('filmOrderForm').appendChild(notesInput);
+      }
+      notesInput.value = notes;
+    }
+
+    // Popup functionality
+    const popup = document.getElementById('orderConfirmPopup');
+    const confirmBtn = document.getElementById('confirmSubmit');
+    const cancelBtn = document.getElementById('cancelPopup');
+
+    function submitForm() {
+      // Sync all hidden inputs
+      document.querySelectorAll('.film-block').forEach(syncHiddenInputs);
+      syncGlobalInputs();
+      
+      // Build order details for body
+      const orderDetails = window.allSelectedFilms.map((item, index) => {
+        return `Film ${index + 1}: ${item.quantity}× ${item.filmType} - ${item.format} - ${item.scanSize} - ${item.scanner} - Contrast: ${item.contrast} - Brightness: ${item.brightness} - Price: $${(item.price * item.quantity).toFixed(2)}`;
+      }).join('\n');
+      
+      const itemIds = window.allSelectedFilms.map((item) => ({
+        id: item.variantId || null,
+        quantity: parseInt(item.quantity) || 1,
+        contrast: item.contrast || '',
+        brightness: item.brightness || ''
+      })).filter((entry) => entry.id);
+      const checkedNegatives = document.querySelector('input[name="negatives"]:checked');
+      const isMailToMeSelected = checkedNegatives && checkedNegatives.closest('label') &&
+        checkedNegatives.closest('label').textContent.trim().toLowerCase().includes('mail to me');
+      if (isMailToMeSelected) {
+        itemIds.push({ id: '53057831698796', quantity: 1, contrast: '', brightness: '' });
+      }
+      
+      let bodyInput = document.querySelector('textarea[name="contact[body]"]');
+      if (!bodyInput) {
+        bodyInput = document.createElement('textarea');
+        bodyInput.name = 'contact[body]';
+        bodyInput.style.display = 'none';
+        document.getElementById('filmOrderForm').appendChild(bodyInput);
+      }
+      bodyInput.value = `Order Details:\n${orderDetails}\n\nTotal: $${window.allSelectedFilms.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)} USD`;
+      
+      let itemIdsInput = document.querySelector('input[name="contact[item_ids]"]');
+      if (!itemIdsInput) {
+        itemIdsInput = document.createElement('input');
+        itemIdsInput.type = 'hidden';
+        itemIdsInput.name = 'contact[item_ids]';
+        document.getElementById('filmOrderForm').appendChild(itemIdsInput);
+      }
+      itemIdsInput.value = JSON.stringify(itemIds);
+      
+      // Submit the form
+      document.getElementById('filmOrderForm').submit();
+    }
+
+    document.querySelector('.checkout-btn').addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const agreeCheckbox = document.querySelector('.agree-checkbox');
+      const errorMessageEl = document.querySelector('.form-error-message');
+
+      // Validate required fields
+      const validationErrors = validateRequiredFields();
+      if (validationErrors.length > 0) {
+        errorMessageEl.textContent = validationErrors[0] + (validationErrors.length > 1 ? ` (and ${validationErrors.length - 1} more error${validationErrors.length > 2 ? 's' : ''})` : '');
+        errorMessageEl.style.display = 'block';
+        const firstBlock = document.querySelector('.film-block');
+        if (firstBlock) firstBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (!agreeCheckbox.checked) {
+        errorMessageEl.textContent = 'Please agree to the terms of service before proceeding.';
+        errorMessageEl.style.display = 'block';
+        agreeCheckbox.closest('.terms').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      } else {
+        errorMessageEl.style.display = 'none';
+      }
+
+      if (window.allSelectedFilms.length === 0) {
+        errorMessageEl.textContent = 'Please add at least one film roll before submitting.';
+        errorMessageEl.style.display = 'block';
+        return;
+      }
+      const name = document.querySelector('input[name="contact[name]"]')?.value.trim() || '';
+      const email = document.querySelector('input[name="contact[email]"]')?.value.trim() || '';
+      const firstFilm = window.allSelectedFilms[0];
+      const filmType = firstFilm?.filmType || '';
+      const format = firstFilm?.format || '';
+
+      if (name === '' || email === '' || filmType === '' || format === '') {
+        errorMessageEl.textContent = 'Please fill in your name, email, and select at least one film type and format before submitting.';
+        errorMessageEl.style.display = 'block';
+        return;
+      }
+      const totalQuantity = window.allSelectedFilms.reduce((sum, item) => sum + item.quantity, 0);
+      const orderId = 'LF0{{ page.metafields.custom.form_id | plus: 1 }}';
+      window.currentOrderId = orderId;
+      document.getElementById('popupName').textContent = name || 'friend';
+      document.getElementById('popupOrderId').textContent = orderId;
+      document.getElementById('popupQuantity').textContent = totalQuantity;
+      const filmDetailsEl = document.getElementById('popupFilmDetails');
+      if (filmDetailsEl) {
+        if (window.allSelectedFilms.length === 1) {
+          const film = window.allSelectedFilms[0];
+          filmDetailsEl.innerHTML = `
+            <p style="margin:10px 0 0;"><strong>Film Type:</strong> ${film.filmType}</p>
+            <p style="margin:0;"><strong>Format:</strong> ${film.format}</p>
+          `;
+        } else {
+          // Multiple films - show all
+          let filmsHtml = '<p style="margin:0 0 8px 0;"><strong>Films:</strong></p>';
+          window.allSelectedFilms.forEach((film, index) => {
+            filmsHtml += `
+              <p style="margin:4px 0;font-size:14px;">
+                ${film.quantity}× ${film.filmType} - ${film.format}${film.scanSize ? ' - ' + film.scanSize : ''}
+              </p>
+            `;
+          });
+          filmDetailsEl.innerHTML = filmsHtml;
+        }
+      }
+      if (popup) popup.style.display = 'flex';
+    });
+    function collectFormData() {
+      const totalQuantity = window.allSelectedFilms.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
+      let totalPrice = window.allSelectedFilms.reduce((sum, item) => {
+        const price = parseFloat(item.price) || 0;
+        const qty = parseInt(item.quantity) || 1;
+        return sum + (price * qty);
+      }, 0);
+      const mailToMeRadio = document.querySelector('input[name="negatives"][value]');
+      const checkedNegatives = document.querySelector('input[name="negatives"]:checked');
+      const isMailToMeSelected = checkedNegatives && checkedNegatives.closest('label') &&
+        checkedNegatives.closest('label').textContent.trim().toLowerCase().includes('mail to me');
+      let mailToMePrice = 0;
+      if (isMailToMeSelected && mailToMeRadio && mailToMeRadio.dataset.price) {
+        const mailPriceStr = String(mailToMeRadio.dataset.price).replace(/[,\s$]/g, '');
+        mailToMePrice = parseFloat(mailPriceStr) || 0;
+        if (mailToMePrice > 0) {
+          totalPrice += mailToMePrice;
+        }
+      }
+
+      const rawOrderId =
+        window.currentOrderId || document.getElementById('popupOrderId')?.textContent.trim() || '';
+      const numericOrderId = parseInt((rawOrderId || '').replace(/[^0-9]/g, ''), 10) || '';
+      console.log(numericOrderId)
+      const formData = {
+        order_id: numericOrderId,
+        raw_id: rawOrderId,
+        name: document.querySelector('input[name="contact[name]"]')?.value.trim() || '',
+        email: document.querySelector('input[name="contact[email]"]')?.value.trim() || '',
+        phone: document.querySelector('input[name="contact[phone]"]')?.value.trim() || '',
+        instagram: document.querySelector('input[name="contact[instagram]"]')?.value.trim() || '',
+        share_images: document.querySelector('input[name="contact[share_images]"]')?.checked ? 'Yes' : 'No',
+        dropbox_location: window.globalLocation || '',
+        negatives: window.globalNegatives || 'Keep (Collect in-store)',
+        order_comments: window.globalNotes || '',
+        films: window.allSelectedFilms.map((item, index) => ({
+          film_number: index + 1,
+          film_type: item.filmType || '',
+          format: item.format || '',
+          scan_size: item.scanSize || '',
+          scanner: item.scanner || '',
+          contrast: item.contrast || 'Standard',
+          brightness: item.brightness || 'Standard',
+          quantity: parseInt(item.quantity) || 1,
+          variant_id: item.variantId || null,
+          price: parseFloat(item.price) || 0,
+          total_price: (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1)
+        })),
+        item_ids: (() => {
+          const ids = window.allSelectedFilms.map((item) => ({
+            id: item.variantId || null,
+            quantity: parseInt(item.quantity) || 1,
+            contrast: item.contrast || '',
+            brightness: item.brightness || ''
+          })).filter((entry) => entry.id);
+          if (isMailToMeSelected) {
+            ids.push({ id: '53057831698796', quantity: 1, contrast: '', brightness: '' });
+          }
+          return ids;
+        })(),
+        total_quantity: totalQuantity,
+        total_price: parseFloat(totalPrice.toFixed(2)),
+        mail_to_me_price: mailToMePrice > 0 ? parseFloat(mailToMePrice.toFixed(2)) : 0
+      };
+
+      return formData;
+    }
+    async function sendToWebhook(data) {
+      const webhookUrl = 'https://hook.us2.make.com/3d1yfjbjqmanxwoa6vko0fkbeudkagll';
+      
+      try {
+        const jsonData = JSON.stringify(data, null, 2);
+      
+        console.log('Sending JSON to webhook:', jsonData);
+        
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: jsonData
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        let responseData;
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          responseData = await response.json();
+        } else {
+          responseData = await response.text();
+        }
+
+        return { success: true, response: responseData };
+      } catch (error) {
+        console.error('Error sending to webhook:', error);
+        console.error('Data that failed to send:', JSON.stringify(data, null, 2));
+        return { success: false, error: error.message };
+      }
+    }
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', async () => {
+        const emailInput = document.querySelector('input[name="contact[email]"]');
+        const email = emailInput?.value.trim() || '';
+        if (!email) {
+          const errorMessageEl = document.querySelector('.form-error-message');
+          if (errorMessageEl) {
+            errorMessageEl.textContent = 'Please enter your email address.';
+            errorMessageEl.style.display = 'block';
+          }
+          const popupError = document.getElementById('popupError');
+          if (popupError) {
+            popupError.textContent = 'Please enter your email address.';
+            popupError.style.display = 'block';
+          }
+          return;
+        }
+
+        if (!validateEmail(email)) {
+          const errorMessageEl = document.querySelector('.form-error-message');
+          if (errorMessageEl) {
+            errorMessageEl.textContent = 'Please enter a valid email address.';
+            errorMessageEl.style.display = 'block';
+          }
+          const popupError = document.getElementById('popupError');
+          if (popupError) {
+            popupError.textContent = 'Please enter a valid email address.';
+            popupError.style.display = 'block';
+          } else {
+            const popupContent = document.querySelector('.popup-content');
+            if (popupContent) {
+              const errorDiv = document.createElement('div');
+              errorDiv.id = 'popupError';
+              errorDiv.style.cssText = 'color: #dc3545; margin: 10px 0; font-size: 14px; font-weight: 500;';
+              errorDiv.textContent = 'Please enter a valid email address.';
+              const buttons = popupContent.querySelector('.popup-buttons');
+              if (buttons) {
+                popupContent.insertBefore(errorDiv, buttons);
+              }
+            }
+          }
+          return;
+        }
+        const errorMessageEl = document.querySelector('.form-error-message');
+        if (errorMessageEl) errorMessageEl.style.display = 'none';
+        const popupError = document.getElementById('popupError');
+        if (popupError) popupError.style.display = 'none';
+        const formData = collectFormData();
+        console.log('Form data collected:', formData);
+        console.log('JSON payload:', JSON.stringify(formData, null, 2));
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Submitting...';
+        const result = await sendToWebhook(formData);
+
+        if (result.success) {
+          const successMessage =
+            'Thank you for your order. It has been successfully received, and our team will contact you soon.';
+          const successEl = document.querySelector('.form-error-message');
+          if (successEl) {
+            successEl.textContent = successMessage;
+            successEl.style.display = 'block';
+            successEl.style.background = '#e9f8ef';
+            successEl.style.border = '1px solid #b6e5c5';
+            successEl.style.color = '#0f5132';
+          }
+          if (popup) popup.style.display = 'none';
+          confirmBtn.textContent = 'Submitted';
+          confirmBtn.disabled = true;
+        } else {
+          const errorMsg = 'Failed to send data to webhook. Please try again.';
+          const errorMessageEl = document.querySelector('.form-error-message');
+          if (errorMessageEl) {
+            errorMessageEl.textContent = errorMsg;
+            errorMessageEl.style.display = 'block';
+          }
+          const popupError = document.getElementById('popupError');
+          if (popupError) {
+            popupError.textContent = errorMsg;
+            popupError.style.display = 'block';
+          }
+          confirmBtn.disabled = false;
+          confirmBtn.textContent = 'Yes, Submit My Order!';
+        }
+      });
+    }
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', () => {
+        if (popup) popup.style.display = 'none';
+      });
+    }
+    if (popup) {
+      popup.addEventListener('click', (e) => {
+        if (e.target === popup) popup.style.display = 'none';
+      });
+    }
+
+    window.getOrder = () => ({
+      items: window.allSelectedFilms,
+      notes: window.globalNotes,
+      location: window.globalLocation,
+      negatives: window.globalNegatives,
+    });
+  });
+</script>
+
+
+<style>
+    .film-order-section {
+      padding: 0px 20px 60px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 790px;
+      margin: 0 auto;
+      background: transparent;
+    }
+
+    .chose_steps_form_first,
+    .chose_steps_form_second,
+    .chose_steps_form_third {
+      border-radius: 16px;
+      border: 1px solid #000;
+      padding: 40px;
+      background: transparent;
+    }
+
+    .chose_steps_form_first,
+    .chose_steps_form_second {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .section-desc {
+      text-align: center;
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    .custom-select {
+      position: relative;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .select-display {
+      border: 1px solid #000;
+      background: transparent;
+      padding: 10px 14px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .select-display.error {
+      border-color: #dc3545;
+      border-width: 2px;
+    }
+
+    .selected-text {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .selected-price {
+      font-weight: 600;
+      color: #333;
+      white-space: nowrap;
+    }
+
+    .arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+      transform-origin: center;
+      color: #777;
+    }
+
+    .film-type-wrapper {
+      display: flex;
+      align-items: end;
+      gap: 15px;
+    }
+
+    .film-order-form select:focus,
+    .film-order-form input:focus,
+    .film-order-form textarea:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .select-options {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      display: none;
+      z-index: 10;
+      max-height: 200px;
+      overflow-y: auto;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .select-options li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #f1f1f1;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+
+    .select-options li:last-child {
+      border-bottom: none;
+    }
+
+    .select-options li:hover {
+      background: #f4f4f4;
+    }
+
+    .select-options li.active {
+      background: #000;
+      color: #fff;
+    }
+
+    .price-option {
+      font-weight: 600;
+    }
+
+    .select-display.open .arrow {
+      transform: rotate(180deg);
+      color: #000;
+    }
+
+    .film-order-form label,
+    .heading_like,
+    .form-title {
+      display: block;
+      font-weight: 600;
+      margin: 6px 0;
+      font-size: 15px;
+    }
+    .custom-select.form-row {
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    {% comment %} .form-title {
+      font-size: 16px;
+      margin-top: 20px;
+    } {% endcomment %}
+
+    .film-order-form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #000;
+      background: transparent;
+      font-size: 16px;
+      transition: all 0.2s;
+      resize: none;
+    }
+
+    .qty-controls {
+      display: flex;
+      flex-direction: column;
+    }
+    .qty-controls-input{
+      display: flex;
+      align-items: normal;
+      gap: 4px;
+      height: 50px;
+    }
+
+    .qty-btn {
+      width: 30px;
+      height: 22px;
+      border: 1px solid #000;
+      background: transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .qty-input {
+      width: 55px;
+      text-align: center;
+      border: 1px solid #000;
+      border-radius: 10px;
+      background: transparent;
+    }
+
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .plus_minus_btn {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+      position: relative;
+    }
+
+    .add-film-btn {
+      margin: 15px 0 10px;
+      font-weight: 600;
+      color: #333;
+      background: #fec340;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      text-decoration: none;
+      padding: 16px 14px;
+      border-radius: 999px;
+    }
+
+    .film-block {
+      position: relative;
+    }
+
+    .remove-film-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: all 0.2s;
+      padding: 0;
+    }
+
+    .remove-film-btn:hover {
+      background: #c82333;
+      transform: scale(1.1);
+    }
+
+    .remove-film-btn:active {
+      transform: scale(0.95);
+    }
+
+    .turnaround .trun_heading,
+    .order_heading,
+    .terms_service {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .turnaround-list {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 0;
+      padding-left: 20px;
+      gap: 8px;
+    }
+
+    .turnaround-list li {
+      font-size: 14px;
+    }
+
+    .negatives-options {
+      display: flex;
+      gap: 12px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .negatives-options .option {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 15px;
+      cursor: pointer;
+      user-select: none;
+      min-height: 44px;
+      border: 1.5px solid #ccc;
+      color: #848080;
+      background: transparent;
+      transition: all 0.2s;
+    }
+
+    .negatives-options input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .negatives-options .option::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #ccc;
+      border-radius: 50%;
+      background-color: transparent;
+      display: inline-block;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .negatives-options .option.active {
+      border-color: #000;
+      color: #000;
+    }
+
+    .negatives-options .option.active::before {
+      background-color: #000;
+      border-color: #000;
+    }
+
+    .negatives-options .option.active::after {
+      content: '✓';
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      position: absolute;
+      top: 50%;
+      left: 29px;
+      transform: translate(-50%, -50%);
+    }
+
+    .negatives-options .option:hover:not(.active) {
+      border-color: #999;
+      color: #555;
+    }
+
+    .negatives-options .option:hover:not(.active)::before {
+      border-color: #999;
+    }
+
+    .note,
+    .address {
+      font-size: 12px;
+      color: #555;
+      margin: 5px 0;
+      display: flex;
+      gap: 15px;
+      font-weight: 400;
+    }
+    .address span{
+      color: #000;
+    }
+
+    .address a {
+      text-decoration: underline;
+      color: #555;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid #000;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      width: 65%;
+    }
+
+    .item-price {
+      font-weight: 600;
+    }
+
+    .notes {
+      font-size: 14px;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    .terms {
+      margin-top: 30px;
+    }
+
+    .terms p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .agree-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      margin-top: 25px;
+      padding: 16px;
+      font-size: 16px;
+      background: #ff6a00;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    .checkout-btn:hover {
+      background: #e65a00;
+    }
+
+    .order-items-container {
+      margin: 10px 0;
+    }
+
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #ddd;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .order-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      position: relative;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      z-index: 10000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #333;
+      line-height: 1;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      color: #000;
+    }
+
+    .modal-body {
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .form-error-message {
+      padding: 10px;
+      background: #fee;
+      border: 1px solid #fcc;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    .checkout-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .support_text {
+      color: #555;
+      text-decoration: none;
+    }
+
+    .support_text:hover {
+      text-decoration: underline;
+    }
+
+    .form-desc {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .chose_steps_form_first,
+      .chose_steps_form_second,
+      .chose_steps_form_third {
+        padding: 24px;
+      }
+
+      .section-title {
+        font-size: 22px;
+        line-height: 1.3;
+      }
+
+      .section-desc {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .form-row {
+        gap: 10px;
+        flex-direction: column;
+      }
+
+      .film-type-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .qty-controls {
+        width: 100%;
+        justify-content: space-between;
+        height: 43px;
+        flex-direction: unset;
+      }
+
+      .qty-input {
+        flex: 1;
+      }
+
+      .film-order-form label,
+      .heading_like,
+      .form-title {
+        font-size: 14px;
+      }
+
+      .select-display {
+        padding: 9px 12px;
+      }
+
+      .add-film-btn {
+        font-size: 14px;
+      }
+
+      .turnaround-list {
+        flex-direction: column;
+        padding-left: 16px;
+      }
+
+      .order-item {
+        width: 100%;
+        font-size: 12px;
+      }
+
+      .checkout-btn {
+        font-size: 15px;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .arrow svg{
+        width: 10px;
+        height: 10px;
+      }
+
+      .film-order-section {
+        padding: 30px 14px 30px;
+      }
+
+      .container {
+        max-width: 100%;
+      }
+
+      .section-title {
+        font-size: 20px;
+      }
+
+      .section-desc {
+        font-size: 13px;
+      }
+
+      .chose_steps_form_first,
+      .chose_steps_form_second,
+      .chose_steps_form_third {
+        padding: 15px 10px;
+        border-radius: 12px;
+      }
+
+      .form-desc {
+        font-size: 13px;
+      }
+
+      .form-title{
+        margin-top: 10px;
+      }
+
+      .form-row {
+        gap: 8px;
+      }
+
+      .select-display {
+        padding: 8px 10px;
+        font-size: 14px;
+      }
+
+      .qty-btn {
+        width: 28px;
+        height: 20px;
+        font-size: 14px;
+      }
+
+      .qty-input {
+        width: 50px;
+      }
+
+      .turnaround .trun_heading,
+      .order_heading,
+      .terms_service {
+        font-size: 16px;
+      }
+
+      .negatives-options {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .negatives-options .option {
+        width: 100%;
+      }
+
+      .order-item {
+        gap: 5px;
+        padding: 8px;
+      }
+
+      .negatives-options .option {
+        padding: 8px 20px;
+      }
+
+      .checkout-btn {
+        padding: 14px;
+        font-size: 14px;
+      }
+
+      .terms p {
+        font-size: 13px;
+      }
+
+      .agree-label {
+        font-size: 13px;
+      }
+
+      .film-order-form textarea {
+        font-size: 14px;
+      }
+
+      .note, .address {
+          font-size: 10px;
+          gap: 8px;
+      }
+
+      .terms {
+          margin-top: 15px;
+      }
+
+      .modal-content {
+        padding: 30px 20px;
+        max-width: 90%;
+      }
+
+      .modal-body {
+        font-size: 14px;
+      }
+
+      .remove-film-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 18px;
+        top: 5px;
+        right: 5px;
+      }
+    }
+
+    .agree-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    font-weight: 500;
+  }
+  .agree-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #000;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Custom Form",
+  "settings": [
+    {
+      "type": "product_list",
+      "label": "Film Product",
+      "id": "film_products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Custom Form"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .form-row.custom-radio {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .form-row.custom-radio ul.select-options {
+    display: flex !important;
+    position: static !important;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .form-row.custom-radio ul.select-options li.active{
+    border-color: #000;
+    color: #000;
+  }
+  .form-row.custom-radio ul.select-options li.active::after {
+    content: '✓';
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    left: 29px;
+    transform: translate(-50%, -50%);
+  }
+  .form-row.custom-radio ul.select-options li.active::before {
+    background-color: #000;
+    border-color: #000;
+  }
+  .form-row.custom-radio ul.select-options li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    user-select: none;
+    min-height: 44px;
+    border: 1.5px solid #ccc;
+    color: #848080;
+    background: transparent;
+    transition: all 0.2s;
+  }
+  .form-row.custom-radio ul.select-options li::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #ccc;
+    border-radius: 50%;
+    background-color: transparent;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .form-row.custom-radio ul.select-options:focus-visible {
+    outline: none;
+    outline-offset:none;
+    box-shadow: none;
+  }
+
+  .chose_steps_duplicate + .chose_steps_duplicate {
+    padding-top: 30px;
+    margin-top: 40px;
+    border-top: 2px dashed rgb(204, 204, 204);
+  }
+
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(6px);
+  }
+
+  .popup-content {
+    background: white;
+    padding: 15px 25px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    animation: pop 0.35s ease-out;
+  }
+
+  @keyframes pop {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .popup-content h3 {
+    font-size: 28px;
+    margin: 8px 0 12px;
+    font-weight: 800;
+  }
+
+  .popup-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .popup-buttons button {
+    padding: 14px 26px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  #cancelPopup {
+    background: #f1f1f1;
+  }
+
+  #cancelPopup:hover {
+    background: #ddd;
+  }
+
+  #confirmSubmit {
+    background: #000;
+    color: #fff;
+  }
+
+  #confirmSubmit:hover {
+    background: #111;
+    transform: translateY(-2px);
+  }
+</style>

@@ -1,0 +1,225 @@
+ <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css" />
+  <style>
+    .swiper { width: 90%; border-radius: 20px; overflow: hidden; position: relative; }
+    .swiper-slide { display: flex; justify-content: center; align-items: center; font-size: 24px; color: #fff; background: #333; }
+    .custom-pagination {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: 80%;
+      pointer-events: auto;
+      z-index: 1;
+    }
+    .progress-segment {
+      flex: 1;
+      height: 3px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .progress-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #fff, #fff);
+      transition: width 0.1s linear;
+      display: block !important;
+    }
+    .progress-segment.active { box-shadow: 0 2px 8px rgba(0,0,0,0.35) inset; }
+    .swiper-slide img{
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+    }
+    .swiper.mySwiper.full-width {
+      width: 100%;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  </style>
+
+  <div class="swiper mySwiper {% if section.settings.full_width %}full-width{% endif %}" style="margin-top: {{ section.settings.outer_top_space }}px;margin-bottom: {{ section.settings.outer_bottom_space }}px">
+    <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+            <div class="swiper-slide">
+                <img src="{{ block.settings.image | img_url:"" }}" width="auto" height="auto">
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="custom-pagination" aria-hidden="false"></div>
+  </div>
+  <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+  <script>
+    // Initialize Swiper
+    const swiper = new Swiper('.mySwiper', {
+      loop: true,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      speed: 800,
+      effect: 'slide',
+    });
+    const paginationContainer = document.querySelector('.custom-pagination');
+    function getRealSlidesCount() {
+      return document.querySelectorAll('.mySwiper .swiper-slide:not(.swiper-slide-duplicate)').length;
+    }
+    function buildPagination() {
+      paginationContainer.innerHTML = '';
+      const slidesCount = getRealSlidesCount();
+      for (let i = 0; i < slidesCount; i++) {
+        const segment = document.createElement('div');
+        segment.classList.add('progress-segment');
+        segment.setAttribute('data-index', i);
+        const fill = document.createElement('div');
+        fill.classList.add('progress-fill');
+        segment.appendChild(fill);
+        paginationContainer.appendChild(segment);
+
+        segment.addEventListener('click', () => {
+          swiper.slideToLoop(i);
+        });
+      }
+    }
+    buildPagination();
+    let fills = document.querySelectorAll('.progress-fill');
+    let segments = document.querySelectorAll('.progress-segment');
+    let rafId = null;
+    let startTime = null;
+    const autoplayDelay = swiper.params.autoplay && swiper.params.autoplay.delay ? swiper.params.autoplay.delay : 4000;
+
+    function resetProgress(activeIndex) {
+      fills.forEach((fill, index) => {
+        fill.style.transition = 'width 0.15s linear';
+        if (index < activeIndex) {
+          fill.style.width = '100%';
+          segments[index].classList.remove('active');
+        } else if (index === activeIndex) {
+          fill.style.width = '0%';
+          segments[index].classList.add('active');
+        } else {
+          fill.style.width = '0%';
+          segments[index].classList.remove('active');
+        }
+      });
+    }
+
+    function cancelAnimation() {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      startTime = null;
+    }
+
+    function animateProgress(activeIndex) {
+      cancelAnimation();
+      const activeFill = fills[activeIndex];
+      if (!activeFill) return;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const pct = Math.min((elapsed / autoplayDelay) * 100, 100);
+        activeFill.style.transition = 'width 0s linear';
+        activeFill.style.width = pct + '%';
+        if (pct < 100) {
+          rafId = requestAnimationFrame(step);
+        }
+      }
+      rafId = requestAnimationFrame(step);
+    }
+
+    function onSlideChange() {
+      fills = document.querySelectorAll('.progress-fill');
+      segments = document.querySelectorAll('.progress-segment');
+      const activeIndex = typeof swiper.realIndex === 'number' ? swiper.realIndex : 0;
+      const slidesCount = getRealSlidesCount();
+      const safeIndex = ((activeIndex % slidesCount) + slidesCount) % slidesCount;
+      resetProgress(safeIndex);
+      animateProgress(safeIndex);
+    }
+
+    if (swiper && swiper.el) {
+      swiper.on('slidesLengthChange', () => {
+        buildPagination();
+        onSlideChange();
+      });
+      swiper.on('init', onSlideChange);
+      swiper.on('slideChange', onSlideChange);
+      swiper.on('autoplay', onSlideChange);
+    }
+    onSlideChange();
+    {% comment %} swiper.el.addEventListener('mouseenter', () => {
+      swiper.autoplay.stop();
+      cancelAnimation();
+    });
+    swiper.el.addEventListener('mouseleave', () => {
+      swiper.autoplay.start();
+      const idx = typeof swiper.realIndex === 'number' ? swiper.realIndex : 0;
+      animateProgress(idx);
+    }); {% endcomment %}
+  </script>
+
+
+
+
+  {% schema %}
+  {
+    "name": "Slider Gallery Auto",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Make it full width",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "outer_top_space",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 0,
+        "label": "Top Space",
+        "unit": "px"
+      }, 
+      {
+        "type": "range",
+        "id": "outer_bottom_space",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 0,
+        "label": "Bottom Space",
+        "unit": "px"
+      }, 
+    ],
+    "blocks": [
+        {
+            "type": "image_picker",
+            "name": "Slider Content",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Select Image"
+                }
+            ]
+        }
+    ],
+    "presets": [
+      { "name": "Slider Gallery Auto" }
+    ]
+  }
+  {% endschema %}
