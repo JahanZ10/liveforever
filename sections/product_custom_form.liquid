@@ -1,6 +1,9 @@
 <section class="film-order-section">
   <div class="container">
-    <h2 class="section-title">Start Your Film Order</h2>
+    {% comment %} <h2 class="section-title">Important: Please submit your order at the same time as
+dropping off or mailing your rolls. This lets us know your film is
+ready for collection or on its way.</h2> {% endcomment %}
+<h2 class="section-title">Online Order Form</h2>
     {% comment %} <p class="section-desc">
       Choose your film type, scan size, and preferences — we'll handle the rest. Designed for professionals and
       hobbyists who want their film treated with care.
@@ -23,10 +26,10 @@
         <p class="form-desc">Tell us about your film -- we'll develop, scan, and send it back with care.</p> {% endcomment %}
 
         <div class="form-group">
-          <label for="instructions">Select Dropbox location (or select ‘Mail in’ for Mail in Orders’)</label>
+          <label for="instructions">Select Drop-off Box location (or select ‘Mail in’ for Mail in Orders)</label>
           <div class="custom-select" data-name="location">
             <div class="select-display">
-              <span class="selected-text">Select Drop Box Locations</span>
+              <span class="selected-text">Select Drop-off Box Location (or Mail In)</span>
               <span class="arrow">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +49,6 @@
               <li data-value="location_1">Live Forever Lab (Street Level)</li>
               <li data-value="location_2">Live Forever Lab Door (1st Floor)</li>
               <li data-value="location_3">The Soda Factory (Street Level)</li>
-              <li data-value="location_4">Live Forever Lab Door (1st Floor)</li>
               <li data-value="location_5">Title Store Barangaroo (In-Store)</li>
               <li data-value="location_6">Mail In</li>
             </ul>
@@ -62,7 +64,7 @@
           <input type="hidden" name="contact[Film Scan Size]" class="sync-filmscanSize">
           <input type="hidden" name="contact[Film Scanner]" class="sync-filmscanner" value="Noritsu">
           <input type="hidden" name="contact[Film Contrast]" class="sync-filmcontrast" value="Standard">
-          <input type="hidden" name="contact[Film Brightness]" class="sync-filmbrightness" value="Standard">
+           <input type="hidden" name="contact[Film Brightness]" class="sync-filmbrightness" value="Standard"> 
           
           <div class="form-group film-type">
             <div class="film-type-wrapper">
@@ -155,7 +157,7 @@
                   </span>
                 </div>
                 <ul class="select-options">
-                  <li data-value="Social">Social (Medium)</li>
+                  <li data-value="Social">Social</li>
                   <li data-value="Classic">Classic (Large)</li>
                   <li data-value="Pro">Pro (Largest)</li>
                 </ul>
@@ -194,7 +196,7 @@
 
           <!-- SCAN PREFERENCES -->
           <div class="form-title" style="margin-top: 24px; font-size: 16px;">
-            Tell us your scan preferences for the film type (Classic and Pro size scan only)
+            Tell us your scan preferences for the film type (Standard and Pro size scan only)
           </div>
           <div class="form-row custom-radio">
             <div class="form-group">
@@ -278,7 +280,7 @@
         <div class="form-row">
           <div class="form-group half">
             <label>Phone</label>
-            <input type="tel" name="contact[phone]" placeholder="+1 (555) 123-4567" class="select-display">
+            <input type="tel" name="contact[phone]" placeholder="+61 4123 123 123" class="select-display">
           </div>
           <div class="form-group">
             <label>Instagram (optional)</label>
@@ -309,21 +311,22 @@
               <span>Dispose</span>
             </label>
           </div>
-
+          {%comment %}
           <p class="note">You can collect your negatives at our lab</p>
           <div class="address">
             <div>Address:</div>
             <div>
-              <span>Australia – Filmforever HQ, 2/62 Albemarle Street, Williamstown North, VIC, 3016</span><br>
+              <span>Australia – Filmforever HQ, 501 Crown St, Surry Hills NSW 2010, Australia</span><br>
               <a href="#" target="_blank">View on Google Maps</a>
             </div>
           </div>
+          {%endcomment %}
           <div class="form-group">
             <label for="instructions">Order Comments</label>
             <textarea
               id="instructions"
               rows="3"
-              placeholder="Let us know any special notes or creative preferences."
+              placeholder="Let us know any special notes about your order"
             ></textarea>
           </div>
         </div>
@@ -337,15 +340,14 @@
           <p class="notes" style="display: none;"></p>
           <div class="order-total">
             <span>Total:</span>
-            <span class="total-price">$0 USD</span>
+            <span class="total-price">$0</span>
           </div>
         </div>
 
         <div class="terms">
           <div class="terms_service">Terms of service</div>
           <p>
-            All orders arriving at the same time must be submitted under one form. The number of rolls can be adjusted
-            next to the products you've selected.
+           By submitting this order, I agree to Live Forever Film Lab’s terms of service.
           </p>
           <p>
             If you need to amend an already submitted form, email us at
@@ -361,7 +363,7 @@
         <div class="form-error-message" style="display: none; color: red; margin-top: 10px; font-size: 14px;"></div>
 
         <button type="submit" class="checkout-btn">
-           Submit your order <span class="checkout-total">$0 USD</span>
+           Submit your order <span class="checkout-total">$0</span>
         </button>
       </div>
     </form>
@@ -370,10 +372,10 @@
   <!-- Order Confirm Popup -->
   <div id="orderConfirmPopup" class="popup-overlay" style="display:none;">
     <div class="popup-content">
-      <div style="margin:0px;">Film roll</div>
+      {% comment %} <div style="margin:0px;">Film roll</div> {% endcomment %}
       <h3>Almost there!</h3>
 
-      <p style="font-size:17px;line-height:1.6;color:#333;">
+      <p style="font-size:17px;line-height:1.6;color:#333; display:none;">
         Hey <strong><span id="popupName">friend</span></strong
         >, Welcome to the family! This is your first order with us — we're so excited to develop your rolls!
       </p>
@@ -393,7 +395,7 @@
       </div>
 
       <p style="color:#555;font-size:15px;margin-bottom:25px;">
-        We'll email you confirmation + drop-off details soon. Can't wait to see your shots!
+        Once your rolls are received, we’ll send you a payment link and start developing!
       </p>
 
       <div id="popupError" style="display: none; color: #dc3545; margin: 10px 0; font-size: 14px; font-weight: 500; padding: 10px; background: #fee; border: 1px solid #fcc; border-radius: 4px;"></div>
@@ -657,7 +659,7 @@
       })();
 
       // Build display text
-      const displayText = `${qty}× ${type}`;
+      const displayText = `${qty} × ${type}`;
 
       return {
         quantity: qty,
@@ -665,7 +667,7 @@
         variantId: variantId,
         variantTitle: variantTitle,
         display: displayText,
-        brightness: brightness,
+        {% comment %} brightness: brightness, {% endcomment %}
         format: format,
         scanSize: scanSize,
         scanner: scanner,
@@ -700,8 +702,8 @@
       if (window.allSelectedFilms.length === 0) {
         summaryText.textContent = 'No items selected';
         container.innerHTML = '';
-        totalEl.textContent = '$0.00 USD';
-        checkoutBtnTotal.textContent = '$0 USD';
+        totalEl.textContent = '$0.00';
+        checkoutBtnTotal.textContent = '$0';
         notesEl.style.display = 'none';
         return;
       }
@@ -738,11 +740,11 @@
         div.innerHTML = `
           <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-weight: 600;">
             <span>${item.display}</span>
-            <span>$${formattedPrice} USD</span>
+            <span>$${formattedPrice}</span>
           </div>
           <div style="color: #666; font-size: 13px; margin-left: 4px;">
             <strong>Selected Options</strong>: ${item.variantTitle} / ${item.brightness}
-            ${itemQty > 1 ? `<br><span style="color: #999;">Unit Price: $${formattedUnitPrice} USD × ${itemQty}</span>` : ''}
+            ${itemQty > 1 ? `<br><span style="color: #999;">Unit Price: $${formattedUnitPrice} × ${itemQty}</span>` : ''}
           </div>
         `;
         container.appendChild(div);
@@ -777,7 +779,7 @@
       notesEl.style.display = 'block';
 
       // Format total price with 2 decimal places
-      const totalFormatted = `$${grandTotal.toFixed(2)} USD`;
+      const totalFormatted = `$${grandTotal.toFixed(2)}`;
       if (totalEl) totalEl.textContent = totalFormatted;
       if (checkoutBtnTotal) checkoutBtnTotal.textContent = totalFormatted;
     }
@@ -1050,7 +1052,7 @@
       }
     });
     
-    document.querySelectorAll('[data-name="filmbrightness"]').forEach((brightnessSelect) => {
+     document.querySelectorAll('[data-name="filmbrightness"]').forEach((brightnessSelect) => {
       const text = brightnessSelect.querySelector('.selected-text');
       const activeLi = brightnessSelect.querySelector('li.active');
       if (text && activeLi) {
@@ -1345,7 +1347,7 @@
           scan_size: item.scanSize || '',
           scanner: item.scanner || '',
           contrast: item.contrast || 'Standard',
-          brightness: item.brightness || 'Standard',
+          {% comment %} brightness: item.brightness || 'Standard', {% endcomment %}
           quantity: parseInt(item.quantity) || 1,
           variant_id: item.variantId || null,
           price: parseFloat(item.price) || 0,
@@ -1356,10 +1358,10 @@
             id: item.variantId || null,
             quantity: parseInt(item.quantity) || 1,
             contrast: item.contrast || '',
-            brightness: item.brightness || ''
+             brightness: item.brightness || '' 
           })).filter((entry) => entry.id);
           if (isMailToMeSelected) {
-            ids.push({ id: '53057831698796', quantity: 1, contrast: '', brightness: '' });
+            ids.push({ id: '53057831698796', quantity: 1, contrast: ''  , brightness: ''  });
           }
           return ids;
         })(),
@@ -1371,7 +1373,7 @@
       return formData;
     }
     async function sendToWebhook(data) {
-      const webhookUrl = 'https://hook.us2.make.com/3d1yfjbjqmanxwoa6vko0fkbeudkagll';
+      const webhookUrl = 'https://hook.us2.make.com/6om7hmx8pg37oqo1frn9bbbm1lnjal7l';
       
       try {
         const jsonData = JSON.stringify(data, null, 2);
@@ -1461,7 +1463,7 @@
 
         if (result.success) {
           const successMessage =
-            'Thank you for your order. It has been successfully received, and our team will contact you soon.';
+            'Thank you for your order. It has been successfully received. Once your rolls reach the lab, our team will send you a payment link and start developing!';
           const successEl = document.querySelector('.form-error-message');
           if (successEl) {
             successEl.textContent = successMessage;

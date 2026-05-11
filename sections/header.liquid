@@ -227,7 +227,7 @@
       }
       @media screen and (max-width: 768px){
         .wraper-list-menu-2{
-          padding-left: 20px;
+          padding-left: 0px;
         }
         .wraper-list-menu-4{
           padding-left: 40px;
@@ -758,10 +758,13 @@
       }
       @media screen and (max-width: 768px){
         .wraper-list-menu-2{
-          padding-left: 20px;
+          padding-left: 0px;
         }
+        .wraper-list-menu-3 .list_main_menu_row {
+    flex-direction: column;
+}
         .wraper-list-menu-4{
-          padding-left: 40px;
+          padding-left: 0px;
         }
         .homepage_header_design {
           width: 90%;
@@ -769,6 +772,17 @@
         body.overflow-hidden-desktop .menu-drawer {
           padding: 0 15px;
         }
+        .menu-drawer__menu-item {
+    padding: 1.1rem 1rem!important;
+    text-decoration: none;
+    font-size: 13px!important;
+}
+.list_main_menu_row h2 {
+    font-size: 24px!important;
+}
+
+.menu-drawer__menu-item.first--item-m{
+padding:0px!important;}
       }
       @media screen and (max-width: 450px){
         .list_main_menu_row{
