@@ -58,9 +58,9 @@
               <h4 class="lab-info-title">{{ section.settings.after_hours_title }}</h4>
             {% endif %}
 
-            {% if section.settings.film_dropoff != blank %}
+            {% comment %} {% if section.settings.film_dropoff != blank %}
               <p class="lab-info-text"><br>{{ section.settings.film_dropoff }}</p>
-            {% endif %}
+            {% endif %} {% endcomment %}
 
             {% if section.settings.negative_collection != blank %}
               <p class="lab-info-text"><strong>Negative Collection:</strong><br>{{ section.settings.negative_collection }}</p>
